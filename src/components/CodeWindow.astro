@@ -1,0 +1,129 @@
+---
+
+---
+<div class="code-window">
+  <div class="window-header">
+    <div class="window-dot dot-red"></div>
+    <div class="window-dot dot-yellow"></div>
+    <div class="window-dot dot-green"></div>
+    <div class="window-title">innovative-solution.js</div>
+  </div>
+  <div class="code-content">
+    <div class="code-line">
+      <span class="line-number">1</span>
+      <span class="keyword">const</span> <span class="variable">innovation</span> = <span class="function">createSolution</span>(<span class="string">'your-idea'</span>);
+    </div>
+    <div class="code-line">
+      <span class="line-number">2</span>
+      <span class="comment">// Transform concepts into reality</span>
+    </div>
+    <div class="code-line">
+      <span class="line-number">3</span>
+      <span class="variable">innovation</span>.<span class="function">develop</span>
+    </div>
+    <div class="code-line">
+      <span class="line-number">4</span>
+      <span class="variable">scalable</span>: <span class="keyword">true</span>,
+    </div>
+    <div class="code-line">
+      <span class="line-number">5</span>
+      <span class="variable">performance</span>: <span class="string">'optimized'</span>
+    </div>
+    <div class="code-line">
+      <span class="line-number">6</span>
+      <span class="cursor"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .code-window {
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .window-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .window-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #28ca42; }
+
+  .window-title {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-left: 1rem;
+  }
+
+  .code-content {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .code-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: typeWriter 0.5s ease-out forwards;
+  }
+
+  .code-line:nth-child(1) { animation-delay: 1s; }
+  .code-line:nth-child(2) { animation-delay: 1.3s; }
+  .code-line:nth-child(3) { animation-delay: 1.6s; }
+  .code-line:nth-child(4) { animation-delay: 1.9s; }
+  .code-line:nth-child(5) { animation-delay: 2.2s; }
+  .code-line:nth-child(6) { animation-delay: 2.5s; }
+
+  @keyframes typeWriter {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .line-number {
+    color: rgba(255, 255, 255, 0.3);
+    width: 30px;
+    text-align: right;
+    margin-right: 1rem;
+  }
+
+  .keyword { color: #c792ea; }
+  .string { color: #c3e88d; }
+  .function { color: #82aaff; }
+  .comment { color: #697098; }
+  .variable { color: #f07178; }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: #00d4ff;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>

@@ -1,20 +1,215 @@
 ---
 title: "Welcome to Monkey City Studios"
 description: "Your partner in innovative development solutions."
+import FloatingElements from './FloatingElement.astro';
+import CodeWindow from './CodeWindow.astro';
+import StatsOverlay from './StatusOverlay.astro';
 ---
 
 <section class="hero">
+  <FloatingElements />
   <div class="container">
     <div class="hero-content">
-      <div class="hero-content--row">
-        <img src="/assets/images/logo.png" alt="Monkey City Studios logo" class="hero-logo hero-logo--aside" />
-        <h1>Welcome to Monkey City Studios</h1>
+      <div class="logo">
+        <!-- <div class="logo-icon"></div> -->
+        <img src="/assets/images/logo.png" alt="Monkey City Studios logo" class="logo-icon" />
+        <span class="logo-text">MONKEY CITY STUDIO</span>
       </div>
-      <p>Your partner in innovative development solutions.</p>
-      <a href="/contact" class="cta-button">Get in Touch</a>
+
+      <h1>Crafting Digital Excellence</h1>
+      <p class="subtitle">
+        We transform ambitious ideas into powerful software solutions. 
+        From cutting-edge web applications to scalable mobile platforms, 
+        we're your partner in innovation.
+      </p>
+
+      <div class="cta-container">
+        <a href="#contact" class="cta-primary">Start Your Project</a>
+        <a href="#portfolio" class="cta-secondary">View Our Work</a>
+      </div>
     </div>
-    <div class="hero-image">
-      <img src="/assets/images/heroImage1.jpg" alt="Hero Image" />
+
+    <div class="hero-visual">
+      <CodeWindow />
+      <StatsOverlay />
     </div>
   </div>
- </section>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg,
+      #19A9F6 0%,
+      #1592D4 25%,
+      #1AB0FF 50%,
+      #127AB3 75%,
+      #0E6391 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-content {
+    animation: slideInLeft 1s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    to { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #00d4ff, #090979);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .logo-text {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    background: linear-gradient(45deg, #fff, #e0e7ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .cta-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary, .cta-secondary {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-primary {
+    background: linear-gradient(45deg, #00d4ff, #090979);
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+  }
+
+  .cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+  }
+
+  .cta-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .hero-visual {
+    position: relative;
+    animation: slideInRight 1s ease-out 0.3s both;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .hero-visual {
+      order: -1;
+    }
+  }
+</style>
