@@ -1,0 +1,25 @@
+{
+  "name": "monkey-city-studios",
+  "version": "1.0.0",
+  "description": "Landing page for Monkey City Studios, a development company.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [
+    "Astro",
+    "Monkey City Studios",
+    "development",
+    "landing page"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^5.13.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  }
+}

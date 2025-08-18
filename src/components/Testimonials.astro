@@ -1,0 +1,34 @@
+---
+const testimonials = [
+  {
+    name: "John Doe",
+    feedback: "Monkey City Studios transformed our online presence. Highly recommend!",
+    company: "Tech Innovations"
+  },
+  {
+    name: "Jane Smith",
+    feedback: "The team was professional and delivered on time. Great experience!",
+    company: "Creative Solutions"
+  },
+  {
+    name: "Alice Johnson",
+    feedback: "Exceptional service and support throughout the project. Will work with them again!",
+    company: "Marketing Gurus"
+  }
+];
+
+---
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-list">
+    {testimonials.map(testimonial => (
+      <div class="testimonial">
+        <p>"{testimonial.feedback}"</p>
+        <p>- {testimonial.name}, {testimonial.company}</p>
+      </div>
+    ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+// This file defines the overall structure of the pages, including the header, footer, and main content area.
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+<Header />
+
+<main>
+  <slot />
+</main>
+
+<Footer />
