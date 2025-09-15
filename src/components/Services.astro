@@ -2,44 +2,82 @@
 const services = [
   {
     title: "Web Development",
-    description: "We create responsive and engaging websites tailored to your business needs.",
+    description:
+      "We create responsive and engaging websites tailored to your business needs.",
     icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>`
+      <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+      <rect x="2" y="4" width="20" height="4" rx="2" fill="currentColor" opacity="0.1"/>
+      <circle cx="6" cy="6" r="0.5" fill="currentColor"/>
+      <circle cx="8" cy="6" r="0.5" fill="currentColor"/>
+      <circle cx="10" cy="6" r="0.5" fill="currentColor"/>
+      <path d="M8 12L10 14L8 16M12 16H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
   },
   {
     title: "Mobile App Development",
-    description: "Our team develops user-friendly mobile applications for both iOS and Android platforms.",
+    description:
+      "Our team develops user-friendly mobile applications for both iOS and Android platforms.",
     icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
-      <line x1="12" y1="18" x2="12.01" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>`
+      <rect x="5" y="2" width="14" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+      <rect x="7" y="4" width="10" height="14" rx="1" fill="currentColor" opacity="0.1"/>
+      <circle cx="12" cy="19.5" r="1" fill="currentColor"/>
+      <path d="M9 7H15M9 9H13M9 11H15M9 13H11" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+    </svg>`,
   },
   {
     title: "UI/UX Design",
-    description: "We design intuitive user interfaces and experiences to enhance user satisfaction.",
+    description:
+      "We design intuitive user interfaces and experiences to enhance user satisfaction.",
     icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="L2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="L2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>`
+      <rect x="3" y="3" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+      <rect x="5" y="5" width="6" height="2" rx="1" fill="currentColor" opacity="0.3"/>
+      <rect x="5" y="8" width="4" height="1" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="5" y="10" width="8" height="1" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <circle cx="16" cy="8" r="2" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M14 17L17 20L22 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 17H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
   },
   {
     title: "Digital Marketing",
-    description: "Our digital marketing services help you reach your target audience effectively.",
+    description:
+      "Our digital marketing services help you reach your target audience effectively.",
     icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3V21L9 15H21V3H3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M13 6L16 9L13 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>`
+      <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+      <path d="M8 12H4M20 12H16M12 8V4M12 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16.24 7.76L18.36 5.64M5.64 18.36L7.76 16.24M16.24 16.24L18.36 18.36M5.64 5.64L7.76 7.76" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
   },
   {
     title: "Consulting Services",
-    description: "We provide expert consulting to help you strategize and grow your business.",
+    description:
+      "We provide expert consulting to help you strategize and grow your business.",
     icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
-    </svg>`
-  }
+      <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 14C8.13 14 5 16.13 5 19V21H19V19C19 16.13 15.87 14 12 14Z" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/>
+      <path d="M16 12L18 10L22 14L18 18L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="18" cy="14" r="1" fill="currentColor"/>
+      <path d="M8 12L6 10L2 14L6 18L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="6" cy="14" r="1" fill="currentColor"/>
+    </svg>`,
+  },
+  {
+    title: "Data Analysis",
+    description:
+      "We transform your data into actionable insights to drive informed business decisions.",
+    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+      <rect x="6" y="12" width="3" height="6" rx="1" fill="currentColor" opacity="0.3"/>
+      <rect x="10.5" y="8" width="3" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+      <rect x="15" y="10" width="3" height="8" rx="1" fill="currentColor" opacity="0.7"/>
+      <path d="M6 9L9 6L13 10L18 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="6" cy="9" r="1.5" fill="currentColor"/>
+      <circle cx="9" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="13" cy="10" r="1.5" fill="currentColor"/>
+      <circle cx="18" cy="5" r="1.5" fill="currentColor"/>
+    </svg>`,
+  },
 ];
 ---
 
@@ -48,17 +86,33 @@ const services = [
     <div class="section-header">
       <h2>Our Services</h2>
       <p class="section-subtitle">
-        Comprehensive digital solutions to transform your business and drive growth
+        Comprehensive digital solutions to transform your business and drive
+        growth
       </p>
     </div>
-    <div class="service-list">
-      {services.map((service, index) => (
-        <div class="service-item" style={`--delay: ${index * 0.1}s`}>
-          <div class="service-icon" set:html={service.icon}></div>
-          <h3>{service.title}</h3>
-          <p>{service.description}</p>
-        </div>
-      ))}
+    <div class="services-grid">
+      {
+        services.map((service, index) => (
+          <div class="service-card" style={`--delay: ${index * 0.1}s`}>
+            <div class="service-header">
+              <div class="service-icon" set:html={service.icon} />
+              <h3>{service.title}</h3>
+            </div>
+            <p>{service.description}</p>
+            <div class="service-arrow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 17L17 7M17 7H7M17 7V17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -100,53 +154,144 @@ const services = [
     line-height: 1.6;
   }
 
-  .service-list {
+  .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
   }
 
-  .service-item {
-    background: rgba(255, 255, 255, 0.8);
+  .service-card {
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     animation: slideInUp 0.6s ease forwards;
     animation-delay: var(--delay);
+    overflow: hidden;
+    cursor: pointer;
+    group: hover;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.12),
+      0 8px 32px rgba(59, 130, 246, 0.15),
+      0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
     position: relative;
     overflow: hidden;
   }
 
-  .service-item::before {
-    content: '';
+  .service-icon::before {
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s ease;
   }
 
-  .service-item:hover::before {
+  .service-card:hover .service-icon::before {
     left: 100%;
   }
 
-  .service-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-    border-color: rgba(59, 130, 246, 0.3);
+  .service-card:hover .service-icon {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  }
+
+  .service-card h3 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .service-card:hover h3 {
+    color: #3b82f6;
+  }
+
+  .service-card p {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1rem;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .service-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+    transform: translateX(-8px);
+    opacity: 0;
+  }
+
+  .service-card:hover .service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: #3b82f6;
   }
 
   @keyframes slideInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -154,74 +299,48 @@ const services = [
     }
   }
 
-  .service-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 2rem;
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-  }
-
-  .service-item:hover .service-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-  }
-
-  .service-icon svg {
-    transition: transform 0.3s ease;
-  }
-
-  .service-item:hover .service-icon svg {
-    transform: scale(1.1);
-  }
-
-  .service-item h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 1rem;
-    transition: color 0.3s ease;
-  }
-
-  .service-item:hover h3 {
-    color: #3b82f6;
-  }
-
-  .service-item p {
-    color: #64748b;
-    line-height: 1.6;
-    font-size: 1rem;
-  }
-
   @media (max-width: 768px) {
     .services {
       padding: 4rem 0;
     }
 
-    .service-list {
+    .services-grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
+      margin-top: 3rem;
     }
 
-    .service-item {
+    .service-card {
       padding: 2rem;
     }
 
-    .service-icon {
-      width: 60px;
-      height: 60px;
+    .service-header {
+      gap: 1rem;
     }
 
-    .service-icon svg {
-      width: 32px;
-      height: 32px;
+    .service-icon {
+      width: 56px;
+      height: 56px;
     }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .service-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .service-arrow {
+      justify-content: flex-start;
+    }
+  }
+
+  .service-item:hover .service-icon svg {
+    transform: scale(1.1);
   }
 </style>
