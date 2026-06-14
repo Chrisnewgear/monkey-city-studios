@@ -95,19 +95,20 @@ const footerLinks = [
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2025 Monkey City Studios. All rights reserved.</p>
-      <p>Built with ❤️ and cutting-edge technology</p>
+      <p>&copy; {new Date().getFullYear()} Monkey City Studios. All rights reserved.</p>
+      <p>Designed &amp; engineered in-house.</p>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    color: white;
+    background: var(--navy-900);
+    color: var(--on-dark);
     padding: 4rem 0 2rem;
     position: relative;
     overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .footer::before {
@@ -117,7 +118,7 @@ const footerLinks = [
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--pulse), transparent 40%), transparent);
   }
 
   .container {
@@ -134,9 +135,9 @@ const footerLinks = [
   }
 
   .footer-section h3 {
-    color: #3b82f6;
-    font-size: 1.25rem;
-    font-weight: 700;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
     margin-bottom: 1.5rem;
     position: relative;
   }
@@ -148,7 +149,7 @@ const footerLinks = [
     left: 0;
     width: 2rem;
     height: 2px;
-    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    background: var(--azure);
     border-radius: 1px;
   }
 
@@ -197,8 +198,8 @@ const footerLinks = [
   }
 
   .footer-nav a:hover {
-    color: #3b82f6;
-    transform: translateX(5px);
+    color: var(--pulse);
+    transform: translateX(4px);
   }
 
   .social-links {
@@ -222,10 +223,11 @@ const footerLinks = [
   }
 
   .social-link:hover {
-    background: #3b82f6;
+    background: var(--azure);
     color: white;
+    border-color: var(--azure);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    box-shadow: var(--shadow-azure);
   }
 
   .contact-info p {

@@ -5,17 +5,15 @@ import Services from '../components/Services.astro';
 import TechStack from '../components/TechStack.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CTA from '../components/CTA.astro';
-
-layout: BaseLayout
-title: "Welcome to Monkey City Studios"
 ---
 
-<Hero />
-
-<Services />
-
-<TechStack />
-
-<Testimonials />
-
-<CTA />
+<BaseLayout
+  title="Monkey City Studios — Digital Product Studio"
+  description="We turn ambitious ideas into shipped software. Web, mobile, and product engineering for startups and growing teams."
+>
+  <Hero />
+  <Services />
+  <TechStack />
+  <Testimonials />
+  <CTA />
+</BaseLayout>

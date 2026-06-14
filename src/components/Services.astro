@@ -3,344 +3,240 @@ const services = [
   {
     title: "Web Development",
     description:
-      "We create responsive and engaging websites tailored to your business needs.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-      <rect x="2" y="4" width="20" height="4" rx="2" fill="currentColor" opacity="0.1"/>
-      <circle cx="6" cy="6" r="0.5" fill="currentColor"/>
-      <circle cx="8" cy="6" r="0.5" fill="currentColor"/>
-      <circle cx="10" cy="6" r="0.5" fill="currentColor"/>
-      <path d="M8 12L10 14L8 16M12 16H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      "Responsive, fast, accessible web applications built on modern frameworks and engineered to scale with your business.",
+    featured: true,
+    span: "span 7",
+    tags: ["React", "Next.js", "Astro"],
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M2 8h20" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M8 12l-2 2 2 2M14 12l2 2-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
   },
   {
-    title: "Mobile App Development",
+    title: "Mobile Apps",
     description:
-      "Our team develops user-friendly mobile applications for both iOS and Android platforms.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="2" width="14" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
-      <rect x="7" y="4" width="10" height="14" rx="1" fill="currentColor" opacity="0.1"/>
-      <circle cx="12" cy="19.5" r="1" fill="currentColor"/>
-      <path d="M9 7H15M9 9H13M9 11H15M9 13H11" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+      "Native-quality iOS and Android experiences from a single, maintainable codebase.",
+    span: "span 5",
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="2" width="12" height="20" rx="3" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     </svg>`,
   },
   {
-    title: "UI/UX Design",
+    title: "UI / UX Design",
     description:
-      "We design intuitive user interfaces and experiences to enhance user satisfaction.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="3" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
-      <rect x="5" y="5" width="6" height="2" rx="1" fill="currentColor" opacity="0.3"/>
-      <rect x="5" y="8" width="4" height="1" rx="0.5" fill="currentColor" opacity="0.3"/>
-      <rect x="5" y="10" width="8" height="1" rx="0.5" fill="currentColor" opacity="0.3"/>
-      <circle cx="16" cy="8" r="2" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M14 17L17 20L22 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M8 17H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      "Interfaces that feel obvious — research-driven flows, polished visuals, and design systems built to last.",
+    span: "span 4",
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M3 9h18M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     </svg>`,
   },
   {
     title: "Digital Marketing",
     description:
-      "Our digital marketing services help you reach your target audience effectively.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/>
-      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-      <path d="M8 12H4M20 12H16M12 8V4M12 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path d="M16.24 7.76L18.36 5.64M5.64 18.36L7.76 16.24M16.24 16.24L18.36 18.36M5.64 5.64L7.76 7.76" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      "Reach the right audience with measurable campaigns and conversion-focused growth strategy.",
+    span: "span 4",
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 11l16-6-4 16-3.5-6L3 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
     </svg>`,
   },
   {
-    title: "Consulting Services",
+    title: "Consulting",
     description:
-      "We provide expert consulting to help you strategize and grow your business.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="2"/>
-      <path d="M12 14C8.13 14 5 16.13 5 19V21H19V19C19 16.13 15.87 14 12 14Z" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/>
-      <path d="M16 12L18 10L22 14L18 18L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="18" cy="14" r="1" fill="currentColor"/>
-      <path d="M8 12L6 10L2 14L6 18L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="6" cy="14" r="1" fill="currentColor"/>
+      "Expert guidance on architecture, technology choices, and the roadmap to ship with confidence.",
+    span: "span 4",
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="7" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M5 20c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     </svg>`,
   },
   {
-    title: "Data Analysis",
+    title: "Data & Analytics",
     description:
-      "We transform your data into actionable insights to drive informed business decisions.",
-    icon: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-      <rect x="6" y="12" width="3" height="6" rx="1" fill="currentColor" opacity="0.3"/>
-      <rect x="10.5" y="8" width="3" height="10" rx="1" fill="currentColor" opacity="0.5"/>
-      <rect x="15" y="10" width="3" height="8" rx="1" fill="currentColor" opacity="0.7"/>
-      <path d="M6 9L9 6L13 10L18 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="6" cy="9" r="1.5" fill="currentColor"/>
-      <circle cx="9" cy="6" r="1.5" fill="currentColor"/>
-      <circle cx="13" cy="10" r="1.5" fill="currentColor"/>
-      <circle cx="18" cy="5" r="1.5" fill="currentColor"/>
+      "Turn raw data into decisions with dashboards, pipelines, and insights your whole team can act on.",
+    featured: true,
+    span: "span 7",
+    tags: ["Pipelines", "BI", "ML"],
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
     </svg>`,
   },
 ];
 ---
 
-<section class="services" id="services">
+<section class="services section" id="services">
   <div class="container">
-    <div class="section-header">
-      <h2>Our Services</h2>
-      <p class="section-subtitle">
-        Comprehensive digital solutions to transform your business and drive
-        growth
+    <div class="section-head">
+      <span class="section-kicker">What we do</span>
+      <h2>End-to-end product capability, under one roof.</h2>
+      <p class="section-lead">
+        From the first whiteboard sketch to a platform serving real users — we
+        cover the full lifecycle so you never hand off between vendors.
       </p>
     </div>
-    <div class="services-grid">
-      {
-        services.map((service, index) => (
-          <div class="service-card" style={`--delay: ${index * 0.1}s`}>
-            <div class="service-header">
-              <div class="service-icon" set:html={service.icon} />
-              <h3>{service.title}</h3>
-            </div>
-            <p>{service.description}</p>
-            <div class="service-arrow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M7 17L17 7M17 7H7M17 7V17"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
+
+    <div class="bento">
+      {services.map((service) => (
+        <article class={`service ${service.featured ? "service--featured" : ""}`} style={`--span: ${service.span}`}>
+          <div class="service-top">
+            <span class="service-icon" set:html={service.icon} />
+            {service.tags && (
+              <ul class="service-tags">
+                {service.tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+            )}
           </div>
-        ))
-      }
+          <div class="service-body">
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </div>
+          <span class="service-link">
+            Learn more
+            <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </article>
+      ))}
+
+      <a class="service service--cta" href="/contact" style="--span: span 5">
+        <h3>Have something else in mind?</h3>
+        <p>Tell us what you're building — we'll shape the right team around it.</p>
+        <span class="service-link service-link--bright">
+          Start a conversation
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
   .services {
-    padding: 8rem 0;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    position: relative;
+    background: var(--bg);
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-
-  .section-header h2 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #1e293b, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .section-subtitle {
-    font-size: 1.25rem;
-    color: #64748b;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  .services-grid {
+  .bento {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-5);
   }
 
-  .service-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 2.5rem;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.08),
-      0 1px 0 rgba(255, 255, 255, 0.5) inset;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    animation: slideInUp 0.6s ease forwards;
-    animation-delay: var(--delay);
-    overflow: hidden;
-    cursor: pointer;
-    group: hover;
+  .service {
+    grid-column: var(--span);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    box-shadow: var(--shadow-sm);
+    transition: transform 280ms var(--ease-out), box-shadow 280ms var(--ease-out),
+      border-color 280ms var(--ease-out);
   }
 
-  .service-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
+  .service:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--azure), white 55%);
   }
 
-  .service-card:hover::before {
-    transform: scaleX(1);
-  }
-
-  .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.12),
-      0 8px 32px rgba(59, 130, 246, 0.15),
-      0 1px 0 rgba(255, 255, 255, 0.5) inset;
-    border-color: rgba(59, 130, 246, 0.3);
-  }
-
-  .service-header {
+  .service-top {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    gap: var(--space-4);
   }
 
   .service-icon {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    border-radius: 16px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    transition: all 0.3s ease;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--azure), white 86%);
+    color: var(--azure-700);
     flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
+    transition: background 280ms var(--ease-out), color 280ms var(--ease-out);
+  }
+  .service:hover .service-icon {
+    background: var(--azure);
+    color: #fff;
   }
 
-  .service-icon::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    transition: left 0.5s ease;
-  }
-
-  .service-card:hover .service-icon::before {
-    left: 100%;
-  }
-
-  .service-card:hover .service-icon {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-  }
-
-  .service-card h3 {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0;
-    transition: color 0.3s ease;
-  }
-
-  .service-card:hover h3 {
-    color: #3b82f6;
-  }
-
-  .service-card p {
-    color: #64748b;
-    line-height: 1.7;
-    font-size: 1rem;
-    margin: 0 0 1.5rem 0;
-  }
-
-  .service-arrow {
+  .service-tags {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .service-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+  }
+
+  .service-body { flex: 1; }
+  .service-body h3 {
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+  }
+  .service-body p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.975rem;
+  }
+
+  .service--featured {
+    background:
+      radial-gradient(120% 120% at 100% 0%, color-mix(in oklab, var(--azure), white 90%), transparent 55%),
+      var(--surface);
+  }
+  .service--featured h3 { font-size: var(--step-2); }
+
+  .service-link {
+    display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
-    color: #94a3b8;
-    transition: all 0.3s ease;
-    transform: translateX(-8px);
-    opacity: 0;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--azure-700);
+    margin-top: auto;
   }
 
-  .service-card:hover .service-arrow {
-    opacity: 1;
-    transform: translateX(0);
-    color: #3b82f6;
+  .service--cta {
+    grid-column: var(--span);
+    justify-content: center;
+    background: linear-gradient(150deg, var(--navy-800), var(--navy-900));
+    border-color: transparent;
+    color: var(--on-dark);
+  }
+  .service--cta h3 { color: #fff; }
+  .service--cta p { color: var(--on-dark-muted); margin: 0; }
+  .service--cta:hover {
+    border-color: transparent;
+    box-shadow: var(--shadow-lg);
+  }
+  .service-link--bright { color: var(--pulse); }
+
+  @media (max-width: 900px) {
+    .service { grid-column: span 6 !important; }
+    .service--featured,
+    .service--cta { grid-column: span 12 !important; }
   }
 
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .services {
-      padding: 4rem 0;
-    }
-
-    .services-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .service-card {
-      padding: 2rem;
-    }
-
-    .service-header {
-      gap: 1rem;
-    }
-
-    .service-icon {
-      width: 56px;
-      height: 56px;
-    }
-
-    .service-card h3 {
-      font-size: 1.25rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .service-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .service-arrow {
-      justify-content: flex-start;
-    }
-  }
-
-  .service-item:hover .service-icon svg {
-    transform: scale(1.1);
+  @media (max-width: 600px) {
+    .service { grid-column: span 12 !important; }
   }
 </style>

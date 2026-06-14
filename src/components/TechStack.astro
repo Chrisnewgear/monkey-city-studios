@@ -209,13 +209,14 @@ const certifications = [
 ];
 ---
 
-<section class="tech-stack" id="tech-stack">
+<section class="tech-stack section" id="tech-stack">
   <div class="container">
-    <div class="section-header">
-      <h2>Our Technology Expertise</h2>
-      <p class="section-subtitle">
-        We leverage cutting-edge technologies to build scalable, 
-        performant, and future-ready solutions for your business.
+    <div class="section-head section-head--center">
+      <span class="section-kicker">Our stack</span>
+      <h2>Battle-tested tools, chosen for the job.</h2>
+      <p class="section-lead">
+        We work across the modern engineering landscape — picking the right
+        technology for performance, scale, and long-term maintainability.
       </p>
     </div>
 
@@ -296,53 +297,14 @@ const certifications = [
 
 <style>
   .tech-stack {
-    padding: 8rem 0;
-    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    background: var(--surface-2);
     position: relative;
     overflow: hidden;
   }
 
-  .tech-stack::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-    pointer-events: none;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+  .tech-stack .container {
     position: relative;
     z-index: 1;
-  }
-
-  .section-header {
-    text-align: center;
-    margin-bottom: 5rem;
-  }
-
-  .section-header h2 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #1e293b, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .section-subtitle {
-    font-size: 1.25rem;
-    color: #64748b;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
   }
 
   .tech-carousel {
@@ -352,11 +314,10 @@ const certifications = [
 
   .carousel-container {
     overflow: hidden;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
   }
 
   .carousel-track {
@@ -379,25 +340,22 @@ const certifications = [
   }
 
   .tech-item {
-    opacity: 0;
-    animation: slideInUp 0.6s ease forwards;
-    animation-delay: var(--delay);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    padding: 1.5rem 1rem;
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out),
+      border-color 260ms var(--ease-out);
   }
 
   .tech-item:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--azure), white 55%);
   }
 
   @keyframes slideInUp {
@@ -418,10 +376,11 @@ const certifications = [
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0.5rem;
-    transition: all 0.3s ease;
+    transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-out);
   }
 
   .tech-item:hover .tech-logo-container {
@@ -443,7 +402,7 @@ const certifications = [
 
   .tech-name {
     font-weight: 600;
-    color: #1e293b;
+    color: var(--ink);
     font-size: 0.95rem;
     transition: color 0.3s ease;
   }
@@ -461,39 +420,38 @@ const certifications = [
   }
 
   .carousel-dot {
-    width: 12px;
-    height: 12px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     border: none;
-    background: rgba(59, 130, 246, 0.3);
+    background: var(--border-strong);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s var(--ease-out);
   }
 
   .carousel-dot.active {
-    background: #3b82f6;
-    transform: scale(1.2);
+    background: var(--azure);
+    width: 26px;
+    border-radius: var(--radius-pill);
   }
 
   .carousel-dot:hover {
-    background: #3b82f6;
-    transform: scale(1.1);
+    background: var(--azure-600);
   }
 
   .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    border: none;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    color: #3b82f6;
+    background: var(--surface);
+    color: var(--azure-700);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s var(--ease-out);
+    box-shadow: var(--shadow-md);
     z-index: 10;
     display: flex;
     align-items: center;
@@ -505,10 +463,11 @@ const certifications = [
   }
 
   .carousel-btn:hover {
-    background: #3b82f6;
+    background: var(--azure);
     color: white;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+    border-color: var(--azure);
+    transform: translateY(-50%) scale(1.06);
+    box-shadow: var(--shadow-azure);
   }
 
   .carousel-btn:hover svg {
@@ -524,20 +483,19 @@ const certifications = [
   }
 
   .certifications {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 3rem;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 4vw, 3rem);
     margin-bottom: 4rem;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
   }
 
   .certifications h3 {
-    font-size: 2rem;
+    font-size: var(--step-2);
     font-weight: 700;
-    color: #1e293b;
+    color: var(--ink);
     margin-bottom: 2rem;
   }
 
@@ -550,30 +508,31 @@ const certifications = [
   .cert-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: rgba(59, 130, 246, 0.1);
-    border-radius: 12px;
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    transition: all 0.3s ease;
+    gap: 0.85rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    text-align: left;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all 0.3s var(--ease-out);
   }
 
   .cert-item:hover {
-    background: rgba(59, 130, 246, 0.15);
+    border-color: color-mix(in oklab, var(--azure), white 55%);
     transform: translateY(-2px);
   }
 
   .cert-badge {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    width: 24px;
-    height: 24px;
+    background: color-mix(in oklab, var(--azure), white 85%);
+    color: var(--azure-700);
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 0.8rem;
     flex-shrink: 0;
   }
 
@@ -585,33 +544,33 @@ const certifications = [
 
   .stat-item {
     text-align: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    padding: 2rem 1.5rem;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   }
 
   .stat-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
   }
 
   .stat-number {
-    font-size: 3rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--azure-700);
+    letter-spacing: -0.02em;
+    line-height: 1;
     margin-bottom: 0.5rem;
   }
 
   .stat-label {
-    font-size: 1.1rem;
-    color: #64748b;
-    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 500;
   }
 
   @media (max-width: 768px) {

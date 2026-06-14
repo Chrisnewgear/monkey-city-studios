@@ -1,11 +1,74 @@
 ---
-// This file defines the Call-To-Action component for Monkey City Studios.
+// Final conversion band — the page's last, clearest call to action.
 ---
 
-<section class="cta">
-  <div class="container cta-content">
-    <h2>Ready to Elevate Your Project?</h2>
-    <p>Contact us today to discuss how we can help bring your vision to life!</p>
-    <a href="/contact" class="cta-button">Get in Touch</a>
+<section class="cta section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-content">
+        <h2>Ready to build something that lasts?</h2>
+        <p>
+          Tell us about your project. We'll get back within one business day with
+          a clear, no-pressure plan for what's next.
+        </p>
+        <div class="cta-actions">
+          <a href="/contact" class="btn btn--on-dark btn--lg">
+            Start your project
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="mailto:info@monkeycitystudios.com" class="btn btn--ghost-light btn--lg">
+            Email us directly
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .cta { background: var(--bg); }
+
+  .cta-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: clamp(2.5rem, 6vw, 5rem);
+    background: linear-gradient(140deg, var(--azure-700), var(--navy-800));
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+  }
+
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(50% 60% at 80% -10%, color-mix(in oklab, var(--pulse), transparent 55%), transparent 60%),
+      radial-gradient(45% 60% at 0% 110%, color-mix(in oklab, var(--azure), transparent 55%), transparent 60%);
+  }
+
+  .cta-content { position: relative; z-index: 1; }
+
+  .cta h2 {
+    color: #fff;
+    font-size: var(--step-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .cta p {
+    color: var(--on-dark);
+    font-size: var(--step-1);
+    max-width: 52ch;
+    margin: 0 auto var(--space-6);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+</style>
