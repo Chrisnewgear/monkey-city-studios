@@ -211,7 +211,7 @@ const certifications = [
 
 <section class="tech-stack section" id="tech-stack">
   <div class="container">
-    <div class="section-head section-head--center">
+    <div class="section-head section-head--center reveal">
       <span class="section-kicker">Our stack</span>
       <h2>Battle-tested tools, chosen for the job.</h2>
       <p class="section-lead">
@@ -220,7 +220,7 @@ const certifications = [
       </p>
     </div>
 
-    <div class="tech-carousel">
+    <div class="tech-carousel reveal">
       <div class="carousel-container">
         <div class="carousel-track" id="carousel-track">
           {technologies.map((slide, slideIndex) => (
@@ -258,7 +258,7 @@ const certifications = [
       </button>
     </div>
 
-    <div class="certifications">
+    <div class="certifications reveal">
       <h3>Certifications & Partnerships</h3>
       <div class="cert-list">
         {certifications.map(cert => (
@@ -274,20 +274,20 @@ const certifications = [
       </div>
     </div>
 
-    <div class="tech-stats">
-      <div class="stat-item">
+    <div class="tech-stats" data-reveal-stagger>
+      <div class="stat-item reveal">
         <div class="stat-number">50+</div>
         <div class="stat-label">Technologies Mastered</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number">100+</div>
         <div class="stat-label">Projects Delivered</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number">5+</div>
         <div class="stat-label">Years Experience</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-item reveal">
         <div class="stat-number">24/7</div>
         <div class="stat-label">Support Available</div>
       </div>
@@ -380,12 +380,15 @@ const certifications = [
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 0.5rem;
-    transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-out);
+    transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   }
 
   .tech-item:hover .tech-logo-container {
-    background: var(--tech-color);
-    transform: scale(1.1);
+    background: color-mix(in oklab, var(--tech-color), var(--surface) 90%);
+    border-color: color-mix(in oklab, var(--tech-color), white 45%);
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 20px color-mix(in oklab, var(--tech-color), transparent 78%);
   }
 
   .tech-logo {
@@ -393,11 +396,12 @@ const certifications = [
     height: 40px;
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    transition: all 0.3s ease;
+    transition: transform 0.3s var(--ease-out), filter 0.3s var(--ease-out);
   }
 
   .tech-item:hover .tech-logo {
-    filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 8px color-mix(in oklab, var(--tech-color), transparent 65%));
   }
 
   .tech-name {
@@ -642,6 +646,29 @@ const certifications = [
 
     .stat-number {
       font-size: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track,
+    .tech-item,
+    .tech-logo-container,
+    .tech-logo,
+    .carousel-btn,
+    .carousel-btn svg,
+    .cert-item,
+    .stat-item,
+    .carousel-dot {
+      transition-duration: 0.01ms;
+    }
+
+    .tech-item:hover,
+    .tech-item:hover .tech-logo-container,
+    .tech-item:hover .tech-logo,
+    .stat-item:hover,
+    .cert-item:hover,
+    .carousel-btn:hover {
+      transform: none;
     }
   }
 </style>

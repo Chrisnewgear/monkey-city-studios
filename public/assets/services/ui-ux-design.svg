@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none" role="img" aria-label="UI and UX design illustration">
+  <defs>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1ab0ff"/>
+      <stop offset="1" stop-color="#1592d4"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="0.3" cy="0.25" r="0.85">
+      <stop offset="0" stop-color="#1ab0ff" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#1ab0ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="520" height="400" fill="url(#gl)"/>
+  <rect x="78" y="66" width="364" height="268" rx="18" fill="#0c2138" stroke="#ffffff" stroke-opacity="0.12"/>
+  <g stroke="#ffffff" stroke-opacity="0.1" stroke-width="2" stroke-dasharray="2 12" stroke-linecap="round">
+    <path d="M110 66v268M190 66v268M270 66v268M350 66v268"/>
+  </g>
+  <circle cx="178" cy="178" r="44" fill="url(#ac)"/>
+  <rect x="252" y="120" width="96" height="96" rx="16" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.18"/>
+  <path d="M300 232l52 64h-104z" fill="#ffffff" fill-opacity="0.07"/>
+  <g>
+    <rect x="118" y="280" width="26" height="26" rx="7" fill="#1ab0ff"/>
+    <rect x="152" y="280" width="26" height="26" rx="7" fill="#1592d4"/>
+    <rect x="186" y="280" width="26" height="26" rx="7" fill="#eaf2fb"/>
+    <rect x="220" y="280" width="26" height="26" rx="7" fill="#0e6391"/>
+  </g>
+  <g>
+    <path d="M318 196l78 30-30 10-8 26z" fill="#ffffff"/>
+    <path d="M318 196l78 30-30 10-8 26z" stroke="#0c2138" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M360 244l22 30" stroke="#1ab0ff" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <circle cx="178" cy="178" r="6" fill="#ffffff" fill-opacity="0.9"/>
+</svg>

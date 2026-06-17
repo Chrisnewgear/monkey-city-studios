@@ -23,6 +23,11 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#071A2C" />
 
+    <!-- Enable scroll-reveal hidden states only when JS runs (prevents content being trapped hidden) -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -43,5 +48,55 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Apple-style scroll reveal: fade + rise elements as they enter the viewport.
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function revealEl(el: HTMLElement, delay: number) {
+        el.style.setProperty('--reveal-delay', delay + 'ms');
+        el.classList.add('is-revealed');
+        const onEnd = (ev: TransitionEvent) => {
+          if (ev.target !== el || ev.propertyName !== 'transform') return;
+          // Restore baseline so component hover transitions stay crisp.
+          el.classList.remove('reveal', 'reveal--scale', 'is-revealed');
+          el.style.removeProperty('--reveal-delay');
+          el.style.willChange = '';
+          el.removeEventListener('transitionend', onEnd);
+        };
+        el.addEventListener('transitionend', onEnd);
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const el = entry.target as HTMLElement;
+            io.unobserve(el);
+            if (el.hasAttribute('data-reveal-stagger')) {
+              const kids = Array.from(el.children).filter((k) =>
+                k.classList.contains('reveal')
+              ) as HTMLElement[];
+              kids.forEach((k, i) => revealEl(k, i * 70));
+            } else {
+              revealEl(el, 0);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+      );
+
+      if (prefersReduced) {
+        // Nothing to do — CSS keeps .reveal elements fully visible.
+      } else {
+        const singles = Array.from(document.querySelectorAll<HTMLElement>('.reveal')).filter(
+          (el) => !el.closest('[data-reveal-stagger]')
+        );
+        singles.forEach((el) => io.observe(el));
+        document
+          .querySelectorAll<HTMLElement>('[data-reveal-stagger]')
+          .forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

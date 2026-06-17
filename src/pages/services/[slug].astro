@@ -1,0 +1,567 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CTA from "../../components/CTA.astro";
+import { services } from "../../data/services";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+const isPhoto = !service.image.endsWith(".svg");
+
+const process = [
+  {
+    title: "Discover",
+    description:
+      "We dig into your goals, users, and constraints to define what success actually looks like.",
+  },
+  {
+    title: "Design",
+    description:
+      "We shape the solution — flows, architecture, and a plan you sign off on before we build.",
+  },
+  {
+    title: "Build",
+    description:
+      "We ship in tight iterations, with working software you can see and steer every week.",
+  },
+  {
+    title: "Launch & support",
+    description:
+      "We release, measure, and stay in your corner to keep things improving after go-live.",
+  },
+];
+---
+
+<BaseLayout
+  title={`${service.title} — Monkey City Studios`}
+  description={service.description}
+>
+  <section class={`svc-hero ${isPhoto ? "svc-hero--photo" : ""}`}>
+    {isPhoto ? (
+      <div class="svc-hero-photo" aria-hidden="true">
+        <img src={service.image} alt="" loading="eager" decoding="async" />
+      </div>
+    ) : (
+      <div class="svc-hero-bg" aria-hidden="true"></div>
+    )}
+    <div class="container svc-hero-inner">
+      <div class="svc-hero-text">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/#services">Services</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{service.title}</span>
+        </nav>
+
+        <span class="svc-hero-icon" aria-hidden="true" set:html={service.icon} />
+        <h1>{service.title}</h1>
+        <p class="svc-hero-lead">{service.lead}</p>
+
+        <div class="svc-hero-cta">
+          <a href="/contact" class="btn btn--on-dark btn--lg">
+            Start your project
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="/#services" class="btn btn--ghost-light btn--lg">All services</a>
+        </div>
+      </div>
+
+      {!isPhoto && (
+        <figure class="svc-hero-figure">
+          <img
+            src={service.image}
+            alt={service.imageAlt}
+            width="520"
+            height="400"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      )}
+    </div>
+  </section>
+
+  <section class="section svc-overview">
+    <div class="container svc-overview-grid">
+      <div class="svc-overview-text reveal">
+        <span class="section-kicker">Overview</span>
+        {service.overview.map((p) => <p>{p}</p>)}
+        <ul class="tech-chips" aria-label="Technologies we use">
+          {service.tech.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+
+      <aside class="svc-deliverables reveal" aria-label="What you get">
+        <h2>What you get</h2>
+        <ul>
+          {service.deliverables.map((d) => (
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              {d}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section svc-capabilities-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-kicker">What's included</span>
+        <h2>Everything this engagement covers.</h2>
+      </div>
+      <div class="svc-capabilities" data-reveal-stagger>
+        {service.capabilities.map((c) => (
+          <article class="cap reveal">
+            <h3>{c.title}</h3>
+            <p>{c.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section svc-process">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="section-kicker">How we work</span>
+        <h2>A clear path from idea to launch.</h2>
+      </div>
+      <ol class="process" data-reveal-stagger>
+        {process.map((step, i) => (
+          <li class="process-step reveal">
+            <span class="process-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section svc-others">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-kicker">Keep exploring</span>
+        <h2>Other ways we can help.</h2>
+      </div>
+      <div class="svc-others-grid" data-reveal-stagger>
+        {others.map((s) => (
+          <a class="svc-others-card reveal" href={`/services/${s.slug}`}>
+            <span class="svc-others-icon" aria-hidden="true" set:html={s.icon} />
+            <span class="svc-others-meta">
+              <span class="svc-others-title">{s.title}</span>
+              <span class="svc-others-desc">{s.description}</span>
+            </span>
+            <svg class="svc-others-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .svc-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(165deg, var(--navy-800), var(--navy-900) 72%);
+    color: var(--on-dark);
+    padding-block: clamp(6rem, 11vw, 9rem) clamp(3rem, 6vw, 5rem);
+  }
+  .svc-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 60% at 85% 0%, color-mix(in oklab, var(--pulse), transparent 62%), transparent 60%),
+      radial-gradient(55% 65% at 0% 100%, color-mix(in oklab, var(--azure-700), transparent 55%), transparent 65%);
+  }
+  .svc-hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+  .svc-hero-text {
+    min-width: 0;
+  }
+
+  .svc-hero-figure {
+    margin: 0;
+    position: relative;
+  }
+  .svc-hero-figure::before {
+    content: "";
+    position: absolute;
+    inset: 6% 2%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--pulse), transparent 72%), transparent);
+    filter: blur(10px);
+    z-index: 0;
+  }
+  .svc-hero-figure img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.35));
+    animation: svc-float 720ms var(--ease-out) 120ms both;
+  }
+  @keyframes svc-float {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Photo variant: full-bleed background image behind the hero copy */
+  .svc-hero--photo {
+    padding-block: clamp(8rem, 15vw, 12rem) clamp(4rem, 8vw, 7rem);
+  }
+  .svc-hero--photo .svc-hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .svc-hero--photo .svc-hero-text {
+    max-width: 42rem;
+  }
+  .svc-hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .svc-hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  /* Overlay keeps white copy legible over any photo (WCAG contrast) */
+  .svc-hero-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(7, 26, 44, 0.96) 0%, rgba(7, 26, 44, 0.8) 42%, rgba(7, 26, 44, 0.45) 100%),
+      linear-gradient(0deg, rgba(7, 26, 44, 0.65), rgba(7, 26, 44, 0.15));
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--on-dark-muted);
+    margin-bottom: var(--space-6);
+  }
+  .breadcrumb a {
+    color: var(--on-dark-muted);
+  }
+  .breadcrumb a:hover {
+    color: #fff;
+  }
+  .breadcrumb [aria-current="page"] {
+    color: #fff;
+  }
+
+  .svc-hero-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--pulse);
+    margin-bottom: var(--space-5);
+  }
+
+  .svc-hero h1 {
+    color: #fff;
+    font-size: var(--step-5);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-4);
+  }
+  .svc-hero-lead {
+    color: var(--on-dark-muted);
+    font-size: var(--step-2);
+    line-height: 1.5;
+    max-width: 44ch;
+    margin-bottom: var(--space-7);
+  }
+  .svc-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  /* ---- Overview + deliverables ---- */
+  .svc-overview {
+    background: var(--bg);
+  }
+  .svc-overview-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .svc-overview-text p {
+    color: var(--body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    margin: 0 0 var(--space-4);
+    max-width: 62ch;
+  }
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: var(--space-5) 0 0;
+    padding: 0;
+  }
+  .tech-chips li {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--azure-700);
+    background: color-mix(in oklab, var(--azure), white 88%);
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .svc-deliverables {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    box-shadow: var(--shadow-sm);
+  }
+  .svc-deliverables h2 {
+    font-size: var(--step-1);
+    color: var(--ink);
+    margin-bottom: var(--space-4);
+  }
+  .svc-deliverables ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .svc-deliverables li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: var(--body);
+    font-size: 0.975rem;
+  }
+  .check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-top: 1px;
+    background: color-mix(in oklab, var(--azure), white 84%);
+    color: var(--azure-700);
+  }
+
+  /* ---- Capabilities ---- */
+  .svc-capabilities-section {
+    background: var(--surface-2);
+  }
+  .svc-capabilities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-5);
+  }
+  .cap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    box-shadow: var(--shadow-sm);
+    transition: transform 280ms var(--ease-out), box-shadow 280ms var(--ease-out),
+      border-color 280ms var(--ease-out);
+  }
+  .cap:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--azure), white 55%);
+  }
+  .cap h3 {
+    color: var(--ink);
+    font-size: var(--step-1);
+    margin-bottom: var(--space-2);
+  }
+  .cap p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.975rem;
+    line-height: 1.6;
+  }
+
+  /* ---- Process ---- */
+  .svc-process {
+    background: var(--bg);
+  }
+  .process {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: none;
+  }
+  .process-step {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .process-num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--azure-700);
+    background: color-mix(in oklab, var(--azure), white 88%);
+    padding: 0.25rem 0.55rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-4);
+  }
+  .process-step h3 {
+    color: var(--ink);
+    font-size: var(--step-1);
+    margin-bottom: var(--space-2);
+  }
+  .process-step p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* ---- Other services ---- */
+  .svc-others {
+    background: var(--surface-2);
+  }
+  .svc-others-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+  }
+  .svc-others-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+    transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out),
+      border-color 240ms var(--ease-out);
+  }
+  .svc-others-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--azure), white 55%);
+  }
+  .svc-others-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--azure), white 86%);
+    color: var(--azure-700);
+  }
+  .svc-others-icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+  .svc-others-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+  .svc-others-title {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .svc-others-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .svc-others-arrow {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--azure-700);
+    transition: transform 240ms var(--ease-out);
+  }
+  .svc-others-card:hover .svc-others-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .svc-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .svc-hero-figure {
+      max-width: 460px;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .svc-overview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc-hero-figure img {
+      animation: none;
+    }
+  }
+</style>

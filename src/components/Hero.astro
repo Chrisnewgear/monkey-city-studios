@@ -8,8 +8,14 @@ const stats = [
 ];
 ---
 
-<section class="hero">
-  <div class="hero-bg" aria-hidden="true"></div>
+<section class="hero" id="hero">
+  <div class="hero-backdrop" aria-hidden="true">
+    <div class="hero-orb hero-orb--1"></div>
+    <div class="hero-orb hero-orb--2"></div>
+    <div class="hero-orb hero-orb--3"></div>
+    <div class="hero-grid"></div>
+    <canvas class="hero-particles" id="hero-particles"></canvas>
+  </div>
 
   <div class="container hero-inner">
     <div class="hero-content">
@@ -51,7 +57,9 @@ const stats = [
 
     <div class="hero-visual">
       <div class="hero-visual-glow" aria-hidden="true"></div>
-      <CodeWindow />
+      <div class="hero-visual-inner">
+        <CodeWindow />
+      </div>
     </div>
   </div>
 </section>
@@ -60,31 +68,85 @@ const stats = [
   .hero {
     position: relative;
     overflow: hidden;
-    background: var(--navy-900);
+    isolation: isolate;
+    background:
+      radial-gradient(120% 90% at 78% -10%, color-mix(in oklab, var(--azure-700), transparent 70%), transparent 60%),
+      linear-gradient(165deg, var(--navy-800), var(--navy-900) 72%);
     color: var(--on-dark);
     padding-block: clamp(7rem, 12vw, 10rem) clamp(4rem, 8vw, 7rem);
+    /* Smoothed pointer position, -1..1, driven by JS rAF loop */
+    --mx: 0;
+    --my: 0;
   }
 
-  /* Layered, static brand field — controlled glow + fine grid, no rainbow churn */
-  .hero-bg {
+  /* Interactive, parallaxed brand field */
+  .hero-backdrop {
     position: absolute;
     inset: 0;
+    z-index: 0;
     pointer-events: none;
-    background:
-      radial-gradient(60% 55% at 82% 8%, color-mix(in oklab, var(--pulse), transparent 62%), transparent 60%),
-      radial-gradient(70% 60% at 8% 95%, color-mix(in oklab, var(--azure-700), transparent 55%), transparent 65%),
-      linear-gradient(160deg, var(--navy-800), var(--navy-900) 70%);
+    overflow: hidden;
   }
-  .hero-bg::after {
-    content: "";
+
+  /* Soft, blurred brand orbs that drift opposite the cursor for depth */
+  .hero-orb {
     position: absolute;
-    inset: 0;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    will-change: transform;
+    transition: transform 600ms var(--ease-out);
+  }
+  .hero-orb--1 {
+    top: -12%;
+    right: 2%;
+    width: 38vw;
+    max-width: 560px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, color-mix(in oklab, var(--pulse), transparent 30%), transparent 68%);
+    transform: translate3d(calc(var(--mx) * 34px), calc(var(--my) * 26px), 0);
+  }
+  .hero-orb--2 {
+    bottom: -18%;
+    left: -6%;
+    width: 42vw;
+    max-width: 620px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, color-mix(in oklab, var(--azure), transparent 40%), transparent 68%);
+    transform: translate3d(calc(var(--mx) * -46px), calc(var(--my) * -30px), 0);
+  }
+  .hero-orb--3 {
+    top: 32%;
+    left: 46%;
+    width: 26vw;
+    max-width: 360px;
+    aspect-ratio: 1;
+    opacity: 0.4;
+    background: radial-gradient(circle, color-mix(in oklab, var(--azure-700), transparent 35%), transparent 70%);
+    transform: translate3d(calc(var(--mx) * 20px), calc(var(--my) * -18px), 0);
+  }
+
+  /* Fine grid, faint, parallaxed a hair against the orbs */
+  .hero-grid {
+    position: absolute;
+    inset: -4%;
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
     background-size: 56px 56px;
     -webkit-mask-image: radial-gradient(120% 100% at 70% 0%, #000 35%, transparent 78%);
     mask-image: radial-gradient(120% 100% at 70% 0%, #000 35%, transparent 78%);
+    will-change: transform;
+    transform: translate3d(calc(var(--mx) * -14px), calc(var(--my) * -10px), 0);
+  }
+
+  /* Interactive constellation network */
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   .hero-inner {
@@ -191,6 +253,7 @@ const stats = [
 
   .hero-visual {
     position: relative;
+    perspective: 1200px;
     animation: rise 800ms var(--ease-out) 120ms both;
   }
   .hero-visual-glow {
@@ -200,9 +263,14 @@ const stats = [
     filter: blur(8px);
     z-index: 0;
   }
-  .hero-visual :global(.code-window) {
+  /* Subtle 3D tilt toward the cursor for tactile depth */
+  .hero-visual-inner {
     position: relative;
     z-index: 1;
+    will-change: transform;
+    transform: rotateY(calc(var(--mx) * 5deg)) rotateX(calc(var(--my) * -5deg)) translateZ(0);
+    transform-style: preserve-3d;
+    transition: transform 400ms var(--ease-out);
   }
 
   @keyframes rise {
@@ -223,5 +291,174 @@ const stats = [
     .hero-visual,
     .hero-badge-dot::after { animation: none; }
     .hero-stat { opacity: 1; animation: none; }
+    /* Freeze all pointer-driven motion */
+    .hero-orb,
+    .hero-grid,
+    .hero-visual-inner { transform: none; transition: none; }
   }
 </style>
+
+<script>
+  const hero = document.getElementById('hero') as HTMLElement | null;
+  const canvas = document.getElementById('hero-particles') as HTMLCanvasElement | null;
+  if (hero && canvas) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    /* ---- Pointer parallax (smoothed in the rAF loop) ---- */
+    let targetX = 0, targetY = 0;   // -1..1, raw from pointer
+    let curX = 0, curY = 0;         // eased values written to CSS vars
+
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      pointer.x = e.clientX - r.left;
+      pointer.y = e.clientY - r.top;
+      pointer.active = true;
+    });
+    hero.addEventListener('pointerleave', () => {
+      targetX = 0; targetY = 0;
+      pointer.active = false;
+    });
+
+    /* ---- Constellation particle field ---- */
+    const ctx = canvas.getContext('2d', { alpha: true })!;
+    const pointer = { x: 0, y: 0, active: false };
+    let particles: { x: number; y: number; vx: number; vy: number }[] = [];
+    let w = 0, h = 0, dpr = 1;
+    const LINK_DIST = 130;
+    const POINTER_RADIUS = 170;
+
+    function resize() {
+      if (!canvas || !hero) return;
+      const r = hero.getBoundingClientRect();
+      w = r.width; h = r.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Density scaled to area, capped for perf (main-thread budget)
+      const count = Math.min(90, Math.max(28, Math.round((w * h) / 16000)));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: (Math.random() - 0.5) * 0.28,
+      }));
+    }
+
+    function step(animate: boolean) {
+      ctx.clearRect(0, 0, w, h);
+
+      for (const p of particles) {
+        if (animate) {
+          // Cursor gently pushes nearby particles away — a clearing follows the pointer
+          if (pointer.active) {
+            const dx = p.x - pointer.x;
+            const dy = p.y - pointer.y;
+            const d = Math.hypot(dx, dy);
+            if (d > 0 && d < POINTER_RADIUS) {
+              const f = (1 - d / POINTER_RADIUS) * 0.6;
+              p.vx += (dx / d) * f;
+              p.vy += (dy / d) * f;
+            }
+          }
+          p.x += p.vx;
+          p.y += p.vy;
+          // Damp so pushes settle back to a calm drift
+          p.vx *= 0.96;
+          p.vy *= 0.96;
+          const minV = 0.12;
+          if (Math.abs(p.vx) < minV) p.vx += (Math.random() - 0.5) * 0.05;
+          if (Math.abs(p.vy) < minV) p.vy += (Math.random() - 0.5) * 0.05;
+
+          if (p.x < 0) p.x += w; else if (p.x > w) p.x -= w;
+          if (p.y < 0) p.y += h; else if (p.y > h) p.y -= h;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(26, 176, 255, 0.85)';
+        ctx.fill();
+      }
+
+      // Links between near neighbours
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < LINK_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(122, 180, 255, ${(1 - d / LINK_DIST) * 0.22})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+        // Links to the pointer
+        if (animate && pointer.active) {
+          const dx = a.x - pointer.x, dy = a.y - pointer.y;
+          const d = Math.hypot(dx, dy);
+          if (d < POINTER_RADIUS) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.strokeStyle = `rgba(26, 176, 255, ${(1 - d / POINTER_RADIUS) * 0.35})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    /* ---- rAF loop: eases parallax vars + renders particles ---- */
+    let rafId = 0;
+    let running = false;
+
+    function frame() {
+      curX += (targetX - curX) * 0.08;
+      curY += (targetY - curY) * 0.08;
+      hero!.style.setProperty('--mx', curX.toFixed(3));
+      hero!.style.setProperty('--my', curY.toFixed(3));
+      step(true);
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running || reduceMotion.matches) return;
+      running = true;
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(rafId);
+    }
+
+    resize();
+    window.addEventListener('resize', () => { resize(); if (reduceMotion.matches) step(false); });
+
+    if (reduceMotion.matches) {
+      // Static frame only — no animation, no parallax
+      step(false);
+    } else {
+      // Pause when the hero scrolls out of view or the tab is hidden
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) start(); else stop();
+      }, { threshold: 0.05 });
+      io.observe(hero);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else if (hero.getBoundingClientRect().bottom > 0) start();
+      });
+    }
+
+    reduceMotion.addEventListener('change', (e) => {
+      if (e.matches) { stop(); hero.style.setProperty('--mx', '0'); hero.style.setProperty('--my', '0'); step(false); }
+      else start();
+    });
+  }
+</script>

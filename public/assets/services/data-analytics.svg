@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none" role="img" aria-label="Data and analytics illustration">
+  <defs>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1ab0ff"/>
+      <stop offset="1" stop-color="#1592d4"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="0.7" cy="0.25" r="0.85">
+      <stop offset="0" stop-color="#1ab0ff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#1ab0ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="520" height="400" fill="url(#gl)"/>
+  <rect x="70" y="60" width="380" height="280" rx="18" fill="#0c2138" stroke="#ffffff" stroke-opacity="0.12"/>
+  <rect x="92" y="84" width="160" height="120" rx="14" fill="#ffffff" fill-opacity="0.05"/>
+  <rect x="268" y="84" width="160" height="120" rx="14" fill="#ffffff" fill-opacity="0.05"/>
+  <rect x="92" y="220" width="336" height="100" rx="14" fill="#ffffff" fill-opacity="0.05"/>
+  <g transform="translate(146 144)">
+    <circle r="38" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="14"/>
+    <circle r="38" fill="none" stroke="url(#ac)" stroke-width="14" stroke-linecap="round" stroke-dasharray="150 240" transform="rotate(-90)"/>
+  </g>
+  <polyline points="288,176 320,150 352,162 384,120 412,134" fill="none" stroke="#1ab0ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#ffffff">
+    <circle cx="320" cy="150" r="5"/>
+    <circle cx="384" cy="120" r="5"/>
+  </g>
+  <rect x="288" y="96" width="60" height="8" rx="4" fill="#ffffff" fill-opacity="0.5"/>
+  <g>
+    <rect x="116" y="262" width="28" height="40" rx="6" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="158" y="246" width="28" height="56" rx="6" fill="#ffffff" fill-opacity="0.18"/>
+    <rect x="200" y="270" width="28" height="32" rx="6" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="242" y="234" width="28" height="68" rx="6" fill="url(#ac)"/>
+    <rect x="284" y="252" width="28" height="50" rx="6" fill="#ffffff" fill-opacity="0.18"/>
+    <rect x="326" y="262" width="28" height="40" rx="6" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="368" y="240" width="28" height="62" rx="6" fill="url(#ac)"/>
+  </g>
+</svg>

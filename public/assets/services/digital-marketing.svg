@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none" role="img" aria-label="Digital marketing illustration">
+  <defs>
+    <linearGradient id="ac" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#1592d4"/>
+      <stop offset="1" stop-color="#1ab0ff"/>
+    </linearGradient>
+    <radialGradient id="gl" cx="0.7" cy="0.25" r="0.85">
+      <stop offset="0" stop-color="#1ab0ff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#1ab0ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="520" height="400" fill="url(#gl)"/>
+  <rect x="74" y="70" width="372" height="260" rx="18" fill="#0c2138" stroke="#ffffff" stroke-opacity="0.12"/>
+  <line x1="104" y1="296" x2="416" y2="296" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2"/>
+  <g>
+    <rect x="120" y="246" width="40" height="50" rx="8" fill="#ffffff" fill-opacity="0.1"/>
+    <rect x="180" y="214" width="40" height="82" rx="8" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="240" y="178" width="40" height="118" rx="8" fill="#ffffff" fill-opacity="0.18"/>
+    <rect x="300" y="138" width="40" height="158" rx="8" fill="url(#ac)"/>
+    <rect x="360" y="104" width="40" height="192" rx="8" fill="url(#ac)"/>
+  </g>
+  <path d="M120 250 L200 214 L260 178 L340 138 L404 100" stroke="#1ab0ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M384 96l24 -4 -4 24" stroke="#1ab0ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="200" cy="214" r="6" fill="#ffffff"/>
+  <circle cx="340" cy="138" r="6" fill="#ffffff"/>
+  <g fill="#1ab0ff">
+    <path d="M150 120l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+    <path d="M430 200l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill-opacity="0.8"/>
+  </g>
+</svg>
