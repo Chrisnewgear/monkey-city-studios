@@ -676,6 +676,7 @@ const certifications = [
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const track = document.getElementById('carousel-track');
+    if (!track) return;
     const dots = document.querySelectorAll('.carousel-dot');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
@@ -685,7 +686,7 @@ const certifications = [
     
     function updateCarousel() {
       const translateX = -currentSlide * (100 / totalSlides);
-      track.style.transform = `translateX(${translateX}%)`;
+      track!.style.transform = `translateX(${translateX}%)`;
       
       dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
@@ -702,7 +703,7 @@ const certifications = [
       updateCarousel();
     }
     
-    function goToSlide(slideIndex) {
+    function goToSlide(slideIndex: number) {
       currentSlide = slideIndex;
       updateCarousel();
     }
@@ -734,14 +735,14 @@ const certifications = [
     let isDragging = false;
     
     carousel?.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
+      startX = (e as TouchEvent).touches[0].clientX;
       isDragging = true;
       clearInterval(autoPlay);
     });
-    
+
     carousel?.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
-      currentX = e.touches[0].clientX;
+      currentX = (e as TouchEvent).touches[0].clientX;
     });
     
     carousel?.addEventListener('touchend', () => {
