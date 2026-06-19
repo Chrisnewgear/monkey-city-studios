@@ -108,7 +108,7 @@ export const services: Service[] = [
       {
         title: "Cross-platform builds",
         description:
-          "React Native and Expo give you iOS and Android from one codebase without sacrificing native feel.",
+          "Flutter and Dart give you iOS and Android from one codebase without sacrificing native feel.",
       },
       {
         title: "Native performance",
@@ -125,6 +125,11 @@ export const services: Service[] = [
         description:
           "We manage builds, signing, and submission through App Store and Google Play review.",
       },
+      {
+        title: "Fully native when you need it",
+        description:
+          "When a project calls for true native, we build with Swift on iOS and Kotlin on Android for the deepest platform integration.",
+      },
     ],
     deliverables: [
       "Published iOS & Android apps",
@@ -132,7 +137,7 @@ export const services: Service[] = [
       "Crash & analytics instrumentation",
       "Store assets & release checklist",
     ],
-    tech: ["React Native", "Expo", "Swift", "Kotlin", "TypeScript"],
+    tech: ["Flutter", "Dart", "Firebase", "Swift", "Kotlin"],
   },
   {
     slug: "ui-ux-design",

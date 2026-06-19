@@ -32,10 +32,10 @@ const socialLinks = [
 ];
 
 const footerLinks = [
-  { name: "Home", url: "/" },
-  { name: "Services", url: "/#services" },
-  { name: "Tech Stack", url: "/#tech-stack" },
-  { name: "Contact", url: "/contact" }
+  { name: "Home", url: "/", key: "footer.home" },
+  { name: "Services", url: "/#services", key: "footer.services" },
+  { name: "Tech Stack", url: "/#tech-stack", key: "footer.techStack" },
+  { name: "Contact", url: "/contact", key: "footer.contact" }
 ];
 ---
 <footer class="footer">
@@ -46,25 +46,25 @@ const footerLinks = [
           <img src="/assets/images/logo.png" alt="Monkey City Studios" class="logo-img" />
           <span class="logo-text">MONKEY CITY STUDIO</span>
         </div>
-        <p class="footer-description">
-          Transforming ambitious ideas into powerful software solutions. 
+        <p class="footer-description" data-i18n="footer.description">
+          Transforming ambitious ideas into powerful software solutions.
           Your partner in digital innovation.
         </p>
       </div>
 
       <div class="footer-section">
-        <h3>Quick Links</h3>
+        <h3 data-i18n="footer.quickLinks">Quick Links</h3>
         <nav class="footer-nav">
           <ul>
             {footerLinks.map(link => (
-              <li><a href={link.url}>{link.name}</a></li>
+              <li><a href={link.url} data-i18n={link.key}>{link.name}</a></li>
             ))}
           </ul>
         </nav>
       </div>
 
       <div class="footer-section">
-        <h3>Connect With Us</h3>
+        <h3 data-i18n="footer.connect">Connect With Us</h3>
         <div class="social-links">
           {socialLinks.map(social => (
             <a href={social.url} class="social-link" aria-label={social.name} target="_blank" rel="noopener noreferrer">
@@ -81,18 +81,18 @@ const footerLinks = [
             info@monkeycitystudios.com
           </p>
           <p>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 16.92V19A2 2 0 0 1 20.11 21A19.79 19.79 0 0 1 2 5.89A2 2 0 0 1 4 4H7.08A2 2 0 0 1 9 5.5L10.5 9A2 2 0 0 1 10 11.76L8.5 13.5A16 16 0 0 0 10.5 15.5A16 16 0 0 0 12.24 13L13.76 11.5A2 2 0 0 1 16 10.5L19.5 9A2 2 0 0 1 21 11.08V16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
             </svg>
-            +1 (234) 567-890
+            +593 96 378 7611
           </p>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {new Date().getFullYear()} Monkey City Studios. All rights reserved.</p>
-      <p>Designed &amp; engineered in-house.</p>
+      <p>&copy; {new Date().getFullYear()} Monkey City Studios. <span data-i18n="footer.rights">All rights reserved.</span></p>
+      <p data-i18n="footer.designed">Designed &amp; engineered in-house.</p>
     </div>
   </div>
 </footer>

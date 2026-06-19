@@ -1,11 +1,7 @@
 ---
 import CodeWindow from './CodeWindow.astro';
-
-const stats = [
-  { value: "100+", label: "Projects shipped" },
-  { value: "98%", label: "Client satisfaction" },
-  { value: "5+", label: "Years building" },
-];
+import HeroBackground from './HeroBackground';
+import HeroContent from './HeroContent';
 ---
 
 <section class="hero" id="hero">
@@ -14,57 +10,52 @@ const stats = [
     <div class="hero-orb hero-orb--2"></div>
     <div class="hero-orb hero-orb--3"></div>
     <div class="hero-grid"></div>
-    <canvas class="hero-particles" id="hero-particles"></canvas>
+    <!-- three.js WebGL particle field — island, hydrated when visible -->
+    <HeroBackground client:visible />
   </div>
 
   <div class="container hero-inner">
-    <div class="hero-content">
-      <span class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Digital product studio · Available for new work
-      </span>
-
-      <h1>
-        We build software that<br />
-        <span class="hero-accent">moves you forward.</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Monkey City Studios partners with founders and growing teams to design,
-        engineer, and ship ambitious web and mobile products — from first
-        concept to scaled platform.
-      </p>
-
-      <div class="hero-cta">
-        <a href="/contact" class="btn btn--primary btn--lg">
-          Start your project
-          <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        <a href="#tech-stack" class="btn btn--ghost-light btn--lg">View our stack</a>
-      </div>
-
-      <dl class="hero-stats">
-        {stats.map((stat) => (
-          <div class="hero-stat">
-            <dt>{stat.value}</dt>
-            <dd>{stat.label}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
+    <!-- Copy + CTAs with framer-motion entrance — island, hydrated on load -->
+    <HeroContent client:load />
 
     <div class="hero-visual">
       <div class="hero-visual-glow" aria-hidden="true"></div>
       <div class="hero-visual-inner">
         <CodeWindow />
       </div>
+
+      <!--
+        Floating proof chips orbiting the code window. They show capability
+        rather than claim it (PRODUCT.md), turning the lone window into a
+        "live build" scene. Decorative duplicates of real copy, so aria-hidden;
+        float animations pause under prefers-reduced-motion (see styles).
+      -->
+      <div class="hero-chip hero-chip--ship" aria-hidden="true">
+        <span class="hero-chip-pulse"></span>
+        <span class="hero-chip-text">
+          <strong>Shipped to production</strong>
+          <span class="hero-chip-meta">build 0.42s · 0 errors</span>
+        </span>
+      </div>
+
+      <div class="hero-chip hero-chip--score" aria-hidden="true">
+        <span class="hero-chip-score">100</span>
+        <span class="hero-chip-text">
+          <strong>Lighthouse</strong>
+          <span class="hero-chip-meta">performance</span>
+        </span>
+      </div>
     </div>
   </div>
 </section>
 
-<style>
+<!--
+  Styles are global (is:global) but every selector is namespaced under .hero,
+  so they don't leak. This is required because the content lives in a React
+  island (HeroContent.tsx) whose elements don't receive Astro's scoped-style
+  attribute. The palette is reused verbatim from global.css design tokens.
+-->
+<style is:global>
   .hero {
     position: relative;
     overflow: hidden;
@@ -74,12 +65,8 @@ const stats = [
       linear-gradient(165deg, var(--navy-800), var(--navy-900) 72%);
     color: var(--on-dark);
     padding-block: clamp(7rem, 12vw, 10rem) clamp(4rem, 8vw, 7rem);
-    /* Smoothed pointer position, -1..1, driven by JS rAF loop */
-    --mx: 0;
-    --my: 0;
   }
 
-  /* Interactive, parallaxed brand field */
   .hero-backdrop {
     position: absolute;
     inset: 0;
@@ -88,14 +75,22 @@ const stats = [
     overflow: hidden;
   }
 
-  /* Soft, blurred brand orbs that drift opposite the cursor for depth */
+  /* WebGL canvas sits above the static CSS layers, behind the content. */
+  .hero-webgl {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Soft, blurred brand orbs for color depth (static, cheap). */
   .hero-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(70px);
-    opacity: 0.55;
-    will-change: transform;
-    transition: transform 600ms var(--ease-out);
+    opacity: 0.5;
   }
   .hero-orb--1 {
     top: -12%;
@@ -103,8 +98,7 @@ const stats = [
     width: 38vw;
     max-width: 560px;
     aspect-ratio: 1;
-    background: radial-gradient(circle, color-mix(in oklab, var(--pulse), transparent 30%), transparent 68%);
-    transform: translate3d(calc(var(--mx) * 34px), calc(var(--my) * 26px), 0);
+    background: radial-gradient(circle, color-mix(in oklab, var(--pulse), transparent 35%), transparent 68%);
   }
   .hero-orb--2 {
     bottom: -18%;
@@ -112,8 +106,7 @@ const stats = [
     width: 42vw;
     max-width: 620px;
     aspect-ratio: 1;
-    background: radial-gradient(circle, color-mix(in oklab, var(--azure), transparent 40%), transparent 68%);
-    transform: translate3d(calc(var(--mx) * -46px), calc(var(--my) * -30px), 0);
+    background: radial-gradient(circle, color-mix(in oklab, var(--azure), transparent 45%), transparent 68%);
   }
   .hero-orb--3 {
     top: 32%;
@@ -121,45 +114,39 @@ const stats = [
     width: 26vw;
     max-width: 360px;
     aspect-ratio: 1;
-    opacity: 0.4;
-    background: radial-gradient(circle, color-mix(in oklab, var(--azure-700), transparent 35%), transparent 70%);
-    transform: translate3d(calc(var(--mx) * 20px), calc(var(--my) * -18px), 0);
+    opacity: 0.38;
+    background: radial-gradient(circle, color-mix(in oklab, var(--azure-700), transparent 40%), transparent 70%);
   }
 
-  /* Fine grid, faint, parallaxed a hair against the orbs */
+  /* Fine grid, faint, masked toward the top-right. */
   .hero-grid {
     position: absolute;
     inset: -4%;
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 58px 58px;
     -webkit-mask-image: radial-gradient(120% 100% at 70% 0%, #000 35%, transparent 78%);
     mask-image: radial-gradient(120% 100% at 70% 0%, #000 35%, transparent 78%);
-    will-change: transform;
-    transform: translate3d(calc(var(--mx) * -14px), calc(var(--my) * -10px), 0);
-  }
-
-  /* Interactive constellation network */
-  .hero-particles {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
   }
 
   .hero-inner {
     position: relative;
     z-index: var(--z-base);
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: center;
     gap: clamp(2.5rem, 5vw, 5rem);
   }
+  /* HeroContent hydrates inside an <astro-island> wrapper, which is the real
+     grid child. Without min-width:0 on every grid item, the longest word can
+     hold the track open wider than the viewport (headline overflow on mobile). */
+  .hero-inner > * {
+    min-width: 0;
+  }
 
   .hero-content {
-    animation: rise 700ms var(--ease-out) both;
+    min-width: 0;
   }
 
   .hero-badge {
@@ -183,16 +170,16 @@ const stats = [
     background: #3ddc97;
     box-shadow: 0 0 0 4px color-mix(in oklab, #3ddc97, transparent 78%);
   }
-  /* Living "available" indicator — a soft ring breathing outward */
+  /* Living "available" indicator — a soft ring breathing outward. */
   .hero-badge-dot::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 50%;
     background: #3ddc97;
-    animation: dot-pulse 2.4s var(--ease-out) infinite;
+    animation: hero-dot-pulse 2.4s var(--ease-out) infinite;
   }
-  @keyframes dot-pulse {
+  @keyframes hero-dot-pulse {
     0% { transform: scale(1); opacity: 0.6; }
     70%, 100% { transform: scale(2.6); opacity: 0; }
   }
@@ -203,8 +190,43 @@ const stats = [
     line-height: 1.05;
     letter-spacing: -0.03em;
     margin-bottom: var(--space-5);
+    /* The headline controls its own breaks via <br>; balance fights that and
+       can leave the accent line unwrapped/overflowing on narrow screens. */
+    text-wrap: pretty;
   }
-  .hero-accent { color: var(--pulse); }
+  .hero-accent {
+    /* Plain inline on small screens so the phrase wraps with the headline.
+       Becomes an inline-block positioning context for the SVG underline at
+       ≥600px (see below), where it stays on one line. */
+    color: var(--pulse);
+  }
+  /* Hand-drawn stroke beneath the accent words. The SVG is positioned to
+     hug the baseline; framer-motion draws the path on load (HeroContent.tsx).
+     Hidden on narrow screens where the phrase wraps — an underline spanning a
+     wrapped box looks detached, and forcing one line would overflow. */
+  .hero-accent-underline {
+    display: none;
+    position: absolute;
+    left: -0.04em;
+    right: -0.04em;
+    bottom: -0.16em;
+    width: calc(100% + 0.08em);
+    height: 0.34em;
+    overflow: visible;
+    color: var(--pulse);
+    filter: drop-shadow(0 2px 10px color-mix(in oklab, var(--pulse), transparent 55%));
+    pointer-events: none;
+  }
+  /* Enough room for "moves you forward." on one line: keep it intact and
+     reveal the drawn underline aligned to it. */
+  @media (min-width: 600px) {
+    .hero-accent {
+      position: relative;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .hero-accent-underline { display: block; }
+  }
 
   .hero-subtitle {
     color: var(--on-dark-muted);
@@ -224,37 +246,39 @@ const stats = [
   .hero-stats {
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(1.5rem, 4vw, 3rem);
+    gap: clamp(1.25rem, 3.5vw, 2.5rem);
     margin: 0;
     padding-top: var(--space-6);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
-  /* Stagger the stats in after the content block settles */
-  .hero-stat {
-    opacity: 0;
-    animation: rise 600ms var(--ease-out) both;
+  /* Hairline divider between stats reads them as one precise "ledger". */
+  .hero-stat + .hero-stat {
+    padding-left: clamp(1.25rem, 3.5vw, 2.5rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
   }
-  .hero-stat:nth-child(1) { animation-delay: 420ms; }
-  .hero-stat:nth-child(2) { animation-delay: 480ms; }
-  .hero-stat:nth-child(3) { animation-delay: 540ms; }
   .hero-stat dt {
     font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: -0.02em;
     line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
   .hero-stat dd {
-    margin: 0.4rem 0 0;
-    font-size: 0.85rem;
+    margin: 0.45rem 0 0;
+    font-size: 0.82rem;
     color: var(--on-dark-muted);
+    letter-spacing: 0.005em;
   }
 
   .hero-visual {
     position: relative;
-    perspective: 1200px;
-    animation: rise 800ms var(--ease-out) 120ms both;
+    /* Prevent the code window's min-content width from blowing out the grid
+       track (minmax(auto,1fr)) and dragging the headline column wider than
+       the viewport on mobile. The content column already sets min-width:0. */
+    min-width: 0;
+    animation: hero-rise 800ms var(--ease-out) 120ms both;
   }
   .hero-visual-glow {
     position: absolute;
@@ -263,19 +287,123 @@ const stats = [
     filter: blur(8px);
     z-index: 0;
   }
-  /* Subtle 3D tilt toward the cursor for tactile depth */
   .hero-visual-inner {
     position: relative;
     z-index: 1;
-    will-change: transform;
-    transform: rotateY(calc(var(--mx) * 5deg)) rotateX(calc(var(--my) * -5deg)) translateZ(0);
-    transform-style: preserve-3d;
-    transition: transform 400ms var(--ease-out);
+    animation: hero-float 7s ease-in-out 1s infinite;
   }
 
-  @keyframes rise {
+  @keyframes hero-rise {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  /* Gentle idle float for the code window — tactile depth without parallax JS. */
+  @keyframes hero-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ---- Floating proof chips ---------------------------------------- */
+  /* Purposeful glass: two small status chips lifted off the code window
+     to read as a live build. Sparing backdrop-blur, not decorative glass. */
+  .hero-chip {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--navy-800), transparent 22%);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: var(--shadow-lg);
+    color: var(--on-dark);
+    white-space: nowrap;
+    opacity: 0;
+    animation:
+      hero-chip-in 600ms var(--ease-out) forwards,
+      hero-chip-float 6.5s ease-in-out infinite;
+  }
+  .hero-chip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    line-height: 1.2;
+  }
+  .hero-chip-text strong {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .hero-chip-meta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--on-dark-muted);
+  }
+
+  .hero-chip--ship {
+    top: 6%;
+    right: -4%;
+    animation-delay: 1.15s, 1.15s;
+  }
+  .hero-chip--score {
+    bottom: 4%;
+    left: -7%;
+    animation-delay: 1.45s, 1.45s;
+    animation-name: hero-chip-in, hero-chip-float-alt;
+  }
+
+  /* Live "shipping" indicator on the ship chip. */
+  .hero-chip-pulse {
+    position: relative;
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3ddc97;
+    box-shadow: 0 0 0 4px color-mix(in oklab, #3ddc97, transparent 80%);
+  }
+  .hero-chip-pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #3ddc97;
+    animation: hero-dot-pulse 2.4s var(--ease-out) infinite;
+  }
+
+  /* Lighthouse score badge — ring around a perfect 100. */
+  .hero-chip-score {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+    background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--pulse), transparent 78%), transparent 72%);
+    border: 1.5px solid color-mix(in oklab, var(--pulse), white 10%);
+    box-shadow: inset 0 0 12px color-mix(in oklab, var(--pulse), transparent 70%);
+  }
+
+  @keyframes hero-chip-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  /* Two phase-offset float tracks so the chips don't bob in lockstep. */
+  @keyframes hero-chip-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+  }
+  @keyframes hero-chip-float-alt {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(7px); }
   }
 
   @media (max-width: 900px) {
@@ -284,181 +412,22 @@ const stats = [
       gap: 3rem;
     }
     .hero-visual { order: 2; }
+    /* Pull chips inside the visual bounds so they don't clip on the edge. */
+    .hero-chip--ship { right: 0; }
+    .hero-chip--score { left: 0; }
+  }
+
+  /* On the smallest screens the chips crowd the code window — drop them. */
+  @media (max-width: 480px) {
+    .hero-chip { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-content,
     .hero-visual,
-    .hero-badge-dot::after { animation: none; }
-    .hero-stat { opacity: 1; animation: none; }
-    /* Freeze all pointer-driven motion */
-    .hero-orb,
-    .hero-grid,
-    .hero-visual-inner { transform: none; transition: none; }
+    .hero-visual-inner,
+    .hero-badge-dot::after,
+    .hero-chip-pulse::after { animation: none; }
+    /* Chips default to opacity:0 for their entrance — show them at rest. */
+    .hero-chip { animation: none; opacity: 1; }
   }
 </style>
-
-<script>
-  const hero = document.getElementById('hero') as HTMLElement | null;
-  const canvas = document.getElementById('hero-particles') as HTMLCanvasElement | null;
-  if (hero && canvas) {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    /* ---- Pointer parallax (smoothed in the rAF loop) ---- */
-    let targetX = 0, targetY = 0;   // -1..1, raw from pointer
-    let curX = 0, curY = 0;         // eased values written to CSS vars
-
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
-      targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      pointer.x = e.clientX - r.left;
-      pointer.y = e.clientY - r.top;
-      pointer.active = true;
-    });
-    hero.addEventListener('pointerleave', () => {
-      targetX = 0; targetY = 0;
-      pointer.active = false;
-    });
-
-    /* ---- Constellation particle field ---- */
-    const ctx = canvas.getContext('2d', { alpha: true })!;
-    const pointer = { x: 0, y: 0, active: false };
-    let particles: { x: number; y: number; vx: number; vy: number }[] = [];
-    let w = 0, h = 0, dpr = 1;
-    const LINK_DIST = 130;
-    const POINTER_RADIUS = 170;
-
-    function resize() {
-      if (!canvas || !hero) return;
-      const r = hero.getBoundingClientRect();
-      w = r.width; h = r.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      // Density scaled to area, capped for perf (main-thread budget)
-      const count = Math.min(90, Math.max(28, Math.round((w * h) / 16000)));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.28,
-        vy: (Math.random() - 0.5) * 0.28,
-      }));
-    }
-
-    function step(animate: boolean) {
-      ctx.clearRect(0, 0, w, h);
-
-      for (const p of particles) {
-        if (animate) {
-          // Cursor gently pushes nearby particles away — a clearing follows the pointer
-          if (pointer.active) {
-            const dx = p.x - pointer.x;
-            const dy = p.y - pointer.y;
-            const d = Math.hypot(dx, dy);
-            if (d > 0 && d < POINTER_RADIUS) {
-              const f = (1 - d / POINTER_RADIUS) * 0.6;
-              p.vx += (dx / d) * f;
-              p.vy += (dy / d) * f;
-            }
-          }
-          p.x += p.vx;
-          p.y += p.vy;
-          // Damp so pushes settle back to a calm drift
-          p.vx *= 0.96;
-          p.vy *= 0.96;
-          const minV = 0.12;
-          if (Math.abs(p.vx) < minV) p.vx += (Math.random() - 0.5) * 0.05;
-          if (Math.abs(p.vy) < minV) p.vy += (Math.random() - 0.5) * 0.05;
-
-          if (p.x < 0) p.x += w; else if (p.x > w) p.x -= w;
-          if (p.y < 0) p.y += h; else if (p.y > h) p.y -= h;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(26, 176, 255, 0.85)';
-        ctx.fill();
-      }
-
-      // Links between near neighbours
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < LINK_DIST) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(122, 180, 255, ${(1 - d / LINK_DIST) * 0.22})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-        // Links to the pointer
-        if (animate && pointer.active) {
-          const dx = a.x - pointer.x, dy = a.y - pointer.y;
-          const d = Math.hypot(dx, dy);
-          if (d < POINTER_RADIUS) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(pointer.x, pointer.y);
-            ctx.strokeStyle = `rgba(26, 176, 255, ${(1 - d / POINTER_RADIUS) * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    /* ---- rAF loop: eases parallax vars + renders particles ---- */
-    let rafId = 0;
-    let running = false;
-
-    function frame() {
-      curX += (targetX - curX) * 0.08;
-      curY += (targetY - curY) * 0.08;
-      hero!.style.setProperty('--mx', curX.toFixed(3));
-      hero!.style.setProperty('--my', curY.toFixed(3));
-      step(true);
-      rafId = requestAnimationFrame(frame);
-    }
-
-    function start() {
-      if (running || reduceMotion.matches) return;
-      running = true;
-      rafId = requestAnimationFrame(frame);
-    }
-    function stop() {
-      running = false;
-      cancelAnimationFrame(rafId);
-    }
-
-    resize();
-    window.addEventListener('resize', () => { resize(); if (reduceMotion.matches) step(false); });
-
-    if (reduceMotion.matches) {
-      // Static frame only — no animation, no parallax
-      step(false);
-    } else {
-      // Pause when the hero scrolls out of view or the tab is hidden
-      const io = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) start(); else stop();
-      }, { threshold: 0.05 });
-      io.observe(hero);
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stop();
-        else if (hero.getBoundingClientRect().bottom > 0) start();
-      });
-    }
-
-    reduceMotion.addEventListener('change', (e) => {
-      if (e.matches) { stop(); hero.style.setProperty('--mx', '0'); hero.style.setProperty('--my', '0'); step(false); }
-      else start();
-    });
-  }
-</script>

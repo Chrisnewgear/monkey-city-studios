@@ -1,17 +1,60 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Social-share image; resolved to an absolute URL against the site origin. */
+  image?: string;
+  /** Set on pages that shouldn't be indexed (e.g. thank-you pages). */
+  noindex?: boolean;
 }
 
 const {
-  title = 'Monkey City Studios — Digital Product Studio',
-  description = 'We design and engineer ambitious software — web, mobile, and product experiences that move startups forward.',
+  title = 'Monkey City Studios — Web & Mobile Product Development Studio',
+  description = 'Monkey City Studios is a digital product studio that designs, builds, and ships web and mobile software for startups and growing teams — from first concept to scaled platform.',
+  image = '/assets/images/heroImage1.jpg',
+  noindex = false,
 } = Astro.props;
+
+// Canonical + absolute asset URLs, resolved against the configured `site`.
+// Astro.site comes from astro.config.mjs (https://monkeycitystudios.com).
+const siteOrigin = Astro.site ?? new URL('https://monkeycitystudios.com');
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
+const ogImage = new URL(image, siteOrigin).href;
+const logoUrl = new URL('/assets/images/logo.png', siteOrigin).href;
+
+// Site-wide organization structured data. Helps Google build a knowledge panel
+// and link the brand to its social profiles. Phone is intentionally omitted
+// until a real business number is in place (placeholder NAP hurts trust/SEO).
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Monkey City Studios',
+  url: siteOrigin.href,
+  logo: logoUrl,
+  image: ogImage,
+  description:
+    'Digital product studio building web and mobile software — web development, mobile apps, UI/UX design, data & analytics, and consulting.',
+  email: 'info@monkeycitystudios.com',
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'Web Development',
+    'Mobile App Development',
+    'UI/UX Design',
+    'Digital Marketing',
+    'Data & Analytics',
+    'Software Consulting',
+  ],
+  sameAs: [
+    'https://linkedin.com/company/monkeycitystudios',
+    'https://github.com/monkeycitystudios',
+    'https://twitter.com/monkeycitystudios',
+  ],
+};
 ---
 
 <!doctype html>
@@ -20,7 +63,12 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large" />}
     <meta name="theme-color" content="#071A2C" />
 
     <!-- Enable scroll-reveal hidden states only when JS runs (prevents content being trapped hidden) -->
@@ -28,9 +76,27 @@ const {
       document.documentElement.classList.add('js');
     </script>
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Monkey City Studios" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Site-wide organization structured data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
+
+    <!-- Per-page structured data / head extras -->
+    <slot name="head" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,8 +104,6 @@ const {
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-
-    <title>{title}</title>
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -48,6 +112,7 @@ const {
       <slot />
     </main>
     <Footer />
+    <WhatsAppButton />
 
     <script>
       // Apple-style scroll reveal: fade + rise elements as they enter the viewport.

@@ -5,9 +5,9 @@ import { services } from "../data/services";
 <section class="services section" id="services">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-kicker">What we do</span>
-      <h2>End-to-end product capability, under one roof.</h2>
-      <p class="section-lead">
+      <span class="section-kicker" data-i18n="services.kicker">What we do</span>
+      <h2 data-i18n="services.title">End-to-end product capability, under one roof.</h2>
+      <p class="section-lead" data-i18n="services.lead">
         From the first whiteboard sketch to a platform serving real users — we
         cover the full lifecycle so you never hand off between vendors.
       </p>
@@ -25,11 +25,11 @@ import { services } from "../data/services";
             )}
           </div>
           <div class="service-body">
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
+            <h3 data-i18n={`services.${service.slug}.title`}>{service.title}</h3>
+            <p data-i18n={`services.${service.slug}.desc`}>{service.description}</p>
           </div>
           <a class="service-link" href={`/services/${service.slug}`} aria-label={`Learn more about ${service.title}`}>
-            Learn more
+            <span data-i18n="services.learnMore">Learn more</span>
             <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -38,10 +38,10 @@ import { services } from "../data/services";
       ))}
 
       <a class="service service--cta reveal" href="/contact" style="--span: span 5">
-        <h3>Have something else in mind?</h3>
-        <p>Tell us what you're building — we'll shape the right team around it.</p>
+        <h3 data-i18n="services.ctaTitle">Have something else in mind?</h3>
+        <p data-i18n="services.ctaDesc">Tell us what you're building — we'll shape the right team around it.</p>
         <span class="service-link service-link--bright">
-          Start a conversation
+          <span data-i18n="services.ctaLink">Start a conversation</span>
           <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>

@@ -1,0 +1,132 @@
+---
+/*
+  EN/ES language switch. Renders a small segmented control; the script below
+  detects the visitor's language on load (saved choice → browser → English),
+  swaps every `data-i18n` element's text, and broadcasts the change so the
+  React Hero island can update too. Choice is remembered in localStorage.
+*/
+---
+
+<div class="lang-toggle" role="group" aria-label="Select language">
+  <button type="button" class="lang-opt" data-lang-btn="en" aria-pressed="true">EN</button>
+  <span class="lang-sep" aria-hidden="true"></span>
+  <button type="button" class="lang-opt" data-lang-btn="es" aria-pressed="false">ES</button>
+</div>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.2rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--surface), transparent 20%);
+  }
+
+  .lang-opt {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.28rem 0.6rem;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    transition: color 180ms var(--ease-out), background 180ms var(--ease-out);
+  }
+
+  .lang-opt:hover {
+    color: var(--ink);
+  }
+
+  .lang-opt[aria-pressed="true"] {
+    color: #fff;
+    background: var(--azure);
+  }
+
+  .lang-sep {
+    width: 1px;
+    height: 0.9rem;
+    background: var(--border-strong);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-opt {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    es,
+    detectLang,
+    STORAGE_KEY,
+    LANG_EVENT,
+    type Lang,
+  } from "../i18n/translations";
+
+  // Cache each element's original (English) text once, so switching back to
+  // EN restores it without needing an English dictionary.
+  const els = Array.from(document.querySelectorAll<HTMLElement>("[data-i18n]"));
+  for (const el of els) {
+    if (el.dataset.i18nEn === undefined) {
+      el.dataset.i18nEn = el.textContent ?? "";
+    }
+  }
+
+  // Same idea for input/textarea placeholders (contact form).
+  const phEls = Array.from(
+    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      "[data-i18n-placeholder]"
+    )
+  );
+  for (const el of phEls) {
+    if (el.dataset.i18nPhEn === undefined) {
+      el.dataset.i18nPhEn = el.placeholder ?? "";
+    }
+  }
+
+  function apply(lang: Lang) {
+    for (const el of els) {
+      const key = el.dataset.i18n!;
+      el.textContent =
+        lang === "es" ? es[key] ?? el.dataset.i18nEn! : el.dataset.i18nEn!;
+    }
+
+    for (const el of phEls) {
+      const key = el.dataset.i18nPlaceholder!;
+      el.placeholder =
+        lang === "es" ? es[key] ?? el.dataset.i18nPhEn! : el.dataset.i18nPhEn!;
+    }
+
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll<HTMLButtonElement>("[data-lang-btn]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", String(btn.dataset.langBtn === lang));
+    });
+  }
+
+  function setLang(lang: Lang) {
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      /* ignore unavailable storage */
+    }
+    apply(lang);
+    // Let React islands (Hero) react to the change.
+    window.dispatchEvent(new CustomEvent(LANG_EVENT, { detail: lang }));
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-lang-btn]").forEach((btn) => {
+    btn.addEventListener("click", () => setLang(btn.dataset.langBtn as Lang));
+  });
+
+  // Apply the detected language as soon as the script runs.
+  apply(detectLang());
+</script>

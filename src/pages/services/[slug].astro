@@ -36,12 +36,60 @@ const process = [
       "We release, measure, and stay in your corner to keep things improving after go-live.",
   },
 ];
+
+// Per-service structured data: a Service node tied to the provider, plus a
+// breadcrumb trail so the path shows in search results. URLs are resolved
+// against the configured site origin (astro.config.mjs).
+const siteOrigin = Astro.site ?? new URL("https://monkeycitystudios.com");
+const serviceUrl = new URL(`/services/${service.slug}`, siteOrigin).href;
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: service.title,
+  description: service.description,
+  url: serviceUrl,
+  serviceType: service.title,
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Monkey City Studios",
+    url: siteOrigin.href,
+  },
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: `${service.title} capabilities`,
+    itemListElement: service.capabilities.map((cap) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: cap.title, description: cap.description },
+    })),
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteOrigin.href },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: service.title,
+      item: serviceUrl,
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={`${service.title} — Monkey City Studios`}
   description={service.description}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
   <section class={`svc-hero ${isPhoto ? "svc-hero--photo" : ""}`}>
     {isPhoto ? (
       <div class="svc-hero-photo" aria-hidden="true">
@@ -53,25 +101,25 @@ const process = [
     <div class="container svc-hero-inner">
       <div class="svc-hero-text">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="/">Home</a>
+          <a href="/" data-i18n="svc.crumbHome">Home</a>
           <span aria-hidden="true">/</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" data-i18n="svc.crumbServices">Services</a>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">{service.title}</span>
+          <span aria-current="page" data-i18n={`services.${service.slug}.title`}>{service.title}</span>
         </nav>
 
         <span class="svc-hero-icon" aria-hidden="true" set:html={service.icon} />
-        <h1>{service.title}</h1>
-        <p class="svc-hero-lead">{service.lead}</p>
+        <h1 data-i18n={`services.${service.slug}.title`}>{service.title}</h1>
+        <p class="svc-hero-lead" data-i18n={`svc.${service.slug}.lead`}>{service.lead}</p>
 
         <div class="svc-hero-cta">
           <a href="/contact" class="btn btn--on-dark btn--lg">
-            Start your project
+            <span data-i18n="cta2.start">Start your project</span>
             <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <a href="/#services" class="btn btn--ghost-light btn--lg">All services</a>
+          <a href="/#services" class="btn btn--ghost-light btn--lg" data-i18n="svc.allServices">All services</a>
         </div>
       </div>
 
@@ -93,24 +141,24 @@ const process = [
   <section class="section svc-overview">
     <div class="container svc-overview-grid">
       <div class="svc-overview-text reveal">
-        <span class="section-kicker">Overview</span>
-        {service.overview.map((p) => <p>{p}</p>)}
+        <span class="section-kicker" data-i18n="svc.overviewKicker">Overview</span>
+        {service.overview.map((p, i) => <p data-i18n={`svc.${service.slug}.ov.${i}`}>{p}</p>)}
         <ul class="tech-chips" aria-label="Technologies we use">
           {service.tech.map((t) => <li>{t}</li>)}
         </ul>
       </div>
 
       <aside class="svc-deliverables reveal" aria-label="What you get">
-        <h2>What you get</h2>
+        <h2 data-i18n="svc.whatYouGet">What you get</h2>
         <ul>
-          {service.deliverables.map((d) => (
+          {service.deliverables.map((d, i) => (
             <li>
               <span class="check" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              {d}
+              <span data-i18n={`svc.${service.slug}.del.${i}`}>{d}</span>
             </li>
           ))}
         </ul>
@@ -121,14 +169,14 @@ const process = [
   <section class="section svc-capabilities-section">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-kicker">What's included</span>
-        <h2>Everything this engagement covers.</h2>
+        <span class="section-kicker" data-i18n="svc.includedKicker">What's included</span>
+        <h2 data-i18n="svc.includedTitle">Everything this engagement covers.</h2>
       </div>
       <div class="svc-capabilities" data-reveal-stagger>
-        {service.capabilities.map((c) => (
+        {service.capabilities.map((c, i) => (
           <article class="cap reveal">
-            <h3>{c.title}</h3>
-            <p>{c.description}</p>
+            <h3 data-i18n={`svc.${service.slug}.cap.${i}.t`}>{c.title}</h3>
+            <p data-i18n={`svc.${service.slug}.cap.${i}.d`}>{c.description}</p>
           </article>
         ))}
       </div>
@@ -138,15 +186,15 @@ const process = [
   <section class="section svc-process">
     <div class="container">
       <div class="section-head section-head--center reveal">
-        <span class="section-kicker">How we work</span>
-        <h2>A clear path from idea to launch.</h2>
+        <span class="section-kicker" data-i18n="svc.howKicker">How we work</span>
+        <h2 data-i18n="svc.howTitle">A clear path from idea to launch.</h2>
       </div>
       <ol class="process" data-reveal-stagger>
         {process.map((step, i) => (
           <li class="process-step reveal">
             <span class="process-num">{String(i + 1).padStart(2, "0")}</span>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
+            <h3 data-i18n={`svc.proc.${i}.t`}>{step.title}</h3>
+            <p data-i18n={`svc.proc.${i}.d`}>{step.description}</p>
           </li>
         ))}
       </ol>
@@ -156,16 +204,16 @@ const process = [
   <section class="section svc-others">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-kicker">Keep exploring</span>
-        <h2>Other ways we can help.</h2>
+        <span class="section-kicker" data-i18n="svc.keepKicker">Keep exploring</span>
+        <h2 data-i18n="svc.keepTitle">Other ways we can help.</h2>
       </div>
       <div class="svc-others-grid" data-reveal-stagger>
         {others.map((s) => (
           <a class="svc-others-card reveal" href={`/services/${s.slug}`}>
             <span class="svc-others-icon" aria-hidden="true" set:html={s.icon} />
             <span class="svc-others-meta">
-              <span class="svc-others-title">{s.title}</span>
-              <span class="svc-others-desc">{s.description}</span>
+              <span class="svc-others-title" data-i18n={`services.${s.slug}.title`}>{s.title}</span>
+              <span class="svc-others-desc" data-i18n={`services.${s.slug}.desc`}>{s.description}</span>
             </span>
             <svg class="svc-others-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

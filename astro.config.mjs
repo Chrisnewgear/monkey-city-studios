@@ -1,14 +1,9 @@
-export default {
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+
+// https://astro.build/config
+export default defineConfig({
   site: 'https://monkeycitystudios.com',
-  title: 'Monkey City Studios',
-  description: 'Your go-to development company for innovative solutions.',
-  theme: {
-    colors: {
-      primary: '#ff6347',
-      secondary: '#4caf50',
-    },
-  },
-  integrations: [
-    // Add any integrations you want to use, e.g., Tailwind CSS, Markdown, etc.
-  ],
-};
+  integrations: [react(), sitemap()],
+});

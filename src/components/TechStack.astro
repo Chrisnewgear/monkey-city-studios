@@ -158,10 +158,10 @@ const technologies = [
       color: "#F05032",
       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
     },
-    { 
-      name: "React Native", 
-      color: "#61DAFB",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+    {
+      name: "Dart",
+      color: "#0175C2",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
     },
     { 
       name: "Firebase", 
@@ -212,9 +212,9 @@ const certifications = [
 <section class="tech-stack section" id="tech-stack">
   <div class="container">
     <div class="section-head section-head--center reveal">
-      <span class="section-kicker">Our stack</span>
-      <h2>Battle-tested tools, chosen for the job.</h2>
-      <p class="section-lead">
+      <span class="section-kicker" data-i18n="tech.kicker">Our stack</span>
+      <h2 data-i18n="tech.title">Battle-tested tools, chosen for the job.</h2>
+      <p class="section-lead" data-i18n="tech.lead">
         We work across the modern engineering landscape — picking the right
         technology for performance, scale, and long-term maintainability.
       </p>
@@ -259,7 +259,7 @@ const certifications = [
     </div>
 
     <div class="certifications reveal">
-      <h3>Certifications & Partnerships</h3>
+      <h3 data-i18n="tech.certTitle">Certifications & Partnerships</h3>
       <div class="cert-list">
         {certifications.map(cert => (
           <div class="cert-item">
@@ -277,19 +277,19 @@ const certifications = [
     <div class="tech-stats" data-reveal-stagger>
       <div class="stat-item reveal">
         <div class="stat-number">50+</div>
-        <div class="stat-label">Technologies Mastered</div>
+        <div class="stat-label" data-i18n="tech.stat1">Technologies Mastered</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-number">100+</div>
-        <div class="stat-label">Projects Delivered</div>
+        <div class="stat-label" data-i18n="tech.stat2">Projects Delivered</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-number">5+</div>
-        <div class="stat-label">Years Experience</div>
+        <div class="stat-label" data-i18n="tech.stat3">Years Experience</div>
       </div>
       <div class="stat-item reveal">
         <div class="stat-number">24/7</div>
-        <div class="stat-label">Support Available</div>
+        <div class="stat-label" data-i18n="tech.stat4">Support Available</div>
       </div>
     </div>
   </div>

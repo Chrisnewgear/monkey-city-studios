@@ -1,9 +1,11 @@
 ---
+import LanguageToggle from "./LanguageToggle.astro";
+
 const navLinks = [
-  { name: "Services", href: "/#services" },
-  { name: "Technology", href: "/#tech-stack" },
-  { name: "Clients", href: "/#testimonials" },
-  { name: "Contact", href: "/contact" },
+  { name: "Services", href: "/#services", key: "nav.services" },
+  { name: "Technology", href: "/#tech-stack", key: "nav.technology" },
+  { name: "Clients", href: "/#testimonials", key: "nav.clients" },
+  { name: "Contact", href: "/contact", key: "nav.contact" },
 ];
 ---
 
@@ -17,14 +19,15 @@ const navLinks = [
     <nav class="primary-nav" aria-label="Primary">
       <ul>
         {navLinks.map((link) => (
-          <li><a href={link.href}>{link.name}</a></li>
+          <li><a href={link.href} data-i18n={link.key}>{link.name}</a></li>
         ))}
       </ul>
     </nav>
 
     <div class="header-actions">
+      <LanguageToggle />
       <a href="/contact" class="btn btn--primary header-cta">
-        Start a project
+        <span data-i18n="cta.startProject">Start a project</span>
         <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -39,11 +42,11 @@ const navLinks = [
     <nav aria-label="Mobile">
       <ul>
         {navLinks.map((link) => (
-          <li><a href={link.href} data-mobile-link>{link.name}</a></li>
+          <li><a href={link.href} data-mobile-link data-i18n={link.key}>{link.name}</a></li>
         ))}
       </ul>
     </nav>
-    <a href="/contact" class="btn btn--primary btn--lg" data-mobile-link>Start a project</a>
+    <a href="/contact" class="btn btn--primary btn--lg" data-mobile-link data-i18n="cta.startProject">Start a project</a>
   </div>
 </header>
 
